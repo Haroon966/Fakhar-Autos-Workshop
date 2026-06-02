@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from './PageHero.astro';
+import TrustBar from './TrustBar.astro';
+import ServiceSidebar from './ServiceSidebar.astro';
+import { SITE, SERVICES } from '../data/site';
+import { getBreadcrumbSchema } from '../data/schema';
+
+interface Props {
+	title: string;
+	description: string;
+	serviceName: string;
+	heading: string;
+	lead: string;
+	slug: string;
+	serviceSchema?: object;
+	children: any;
+}
+
+const { title, description, serviceName, heading, lead, slug, serviceSchema, children } = Astro.props;
+const service = SERVICES.find((s) => s.slug === slug);
+const serviceIndex = SERVICES.findIndex((s) => s.slug === slug);
+const prevSlug = serviceIndex > 0 ? SERVICES[serviceIndex - 1].slug : null;
+const nextSlug = serviceIndex >= 0 && serviceIndex < SERVICES.length - 1 ? SERVICES[serviceIndex + 1].slug : null;
+const breadcrumbSchema = getBreadcrumbSchema([
+	{ name: 'Home', url: SITE.url + '/' },
+	{ name: 'Services', url: SITE.url + '/services/' },
+	{ name: serviceName, url: SITE.url + '/services/' + slug + '/' },
+]);
+const schemas = [breadcrumbSchema, ...(serviceSchema ? [serviceSchema] : [])];
+---
+
+<Layout
+	title={title}
+	description={description}
+	canonical={`${SITE.url}/services/${slug}/`}
+	image={service?.image}
+	imageAlt={`${serviceName} at ${SITE.name}`}
+	schema={schemas}
+	pageLayout="page"
+>
+	<article class="page">
+		<PageHero
+			title={heading}
+			lead={lead}
+			eyebrow={serviceName}
+			breadcrumbs={[
+				{ label: 'Home', href: '/' },
+				{ label: 'Services', href: '/services/' },
+				{ label: serviceName },
+			]}
+			image={service?.image}
+			imageAlt={service ? `${serviceName} at ${SITE.name}` : ''}
+		>
+			<Fragment slot="actions">
+				<a href={`tel:${SITE.phone}`} class="btn btn--primary">Call Now</a>
+				<a href={SITE.whatsappUrl} class="btn btn--secondary" target="_blank" rel="noopener noreferrer">Ask on WhatsApp</a>
+			</Fragment>
+		</PageHero>
+
+		<div class="page__body layout">
+			<div class="page__grid">
+				<div class="page__main prose">
+					<slot />
+				</div>
+				<ServiceSidebar currentSlug={slug} />
+			</div>
+		</div>
+
+		<TrustBar />
+
+		<nav class="service-pager" aria-label="Other services">
+			<div class="layout service-pager__inner">
+				{prevSlug && (
+					<a href={`/services/${prevSlug}/`} class="btn btn--secondary">
+						← {SERVICES.find((s) => s.slug === prevSlug)?.name}
+					</a>
+				)}
+				<a href="/services/" class="btn btn--ghost">All Services</a>
+				{nextSlug && (
+					<a href={`/services/${nextSlug}/`} class="btn btn--secondary">
+						{SERVICES.find((s) => s.slug === nextSlug)?.name} →
+					</a>
+				)}
+			</div>
+		</nav>
+	</article>
+</Layout>

@@ -1,0 +1,29 @@
+---
+import ServicePageLayout from '../../components/ServicePageLayout.astro';
+import { getServiceSchema } from '../../data/schema';
+
+const title = `Car Painting Islamabad | Fakhar Auto Workshop`;
+const description = 'High-quality car paint jobs in Islamabad. Color matching, full resprays, and panel painting. Professional finishing at Fakhar Auto Workshop.';
+---
+
+<ServicePageLayout
+	title={title}
+	description={description}
+	serviceName="Painting"
+	heading="Car Painting"
+	lead="High-quality paint jobs with color matching and finishing. We give your vehicle a lasting, professional finish whether you need a single panel or a full respray."
+	slug="painting"
+	serviceSchema={getServiceSchema('Car Painting', description, 'painting')}
+>
+	<h2>Painting Services in Islamabad</h2>
+	<p>Fakhar Auto Workshop provides full painting services for cars and light vehicles. We match existing paint accurately and use quality materials so new panels blend with the rest of the car. From small touch-ups and panel painting to complete resprays, we work to a high standard so your vehicle looks its best.</p>
+
+	<h2>Color Matching and Finishing</h2>
+	<p>We use modern color matching systems to mix paint that matches your car's original shade, including metallic and pearl finishes. Proper preparation—sanding, priming, and masking—ensures a smooth, even coat and a durable finish that resists fading and chipping.</p>
+
+	<h2>Full Resprays and Partial Work</h2>
+	<p>Whether you want a full respray in the same or a new color, or only certain panels repainted after repair, we plan the job to minimise overspray and deliver a consistent finish. Our workshop is set up for spray painting with attention to dust and humidity so the result is professional and long-lasting.</p>
+
+	<h2>Why Choose Fakhar Auto Workshop</h2>
+	<p>We combine skilled prep and spraying with quality paint and clear coat. You get honest advice on what is needed and a finish we stand behind. For car painting in Islamabad, call or visit Fakhar Auto Workshop.</p>
+</ServicePageLayout>

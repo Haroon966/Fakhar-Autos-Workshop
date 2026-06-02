@@ -1,0 +1,32 @@
+---
+import ServicePageLayout from '../../components/ServicePageLayout.astro';
+import { getServiceSchema } from '../../data/schema';
+
+const title = `Oil Change, Brakes & More | Fakhar Auto Workshop`;
+const description = 'Oil changes, brake services, tire rotation, and general maintenance in Islamabad. Keep your car running with Fakhar Auto Workshop.';
+---
+
+<ServicePageLayout
+	title={title}
+	description={description}
+	serviceName="Other Services"
+	heading="Other Services"
+	lead="Oil changes, brake services, tire rotation, and more. We handle the everyday maintenance that keeps your vehicle safe and reliable."
+	slug="other-services"
+	serviceSchema={getServiceSchema('Oil Change, Brakes & More', description, 'other-services')}
+>
+	<h2>Oil and Filter Changes</h2>
+	<p>Regular oil changes are essential for engine life. At Fakhar Auto Workshop we use the right grade and type of oil for your vehicle and replace the oil filter every time. We can advise on the correct interval for your driving conditions and keep your engine protected.</p>
+
+	<h2>Brake Services</h2>
+	<p>Brakes are critical for safety. We inspect brake pads, discs, drums, and fluid and recommend replacement when needed. We fit quality brake parts and bleed the system so your brakes respond reliably. Don't ignore squealing or soft pedals—bring your car in for a brake check.</p>
+
+	<h2>Tire Rotation and Services</h2>
+	<p>We rotate tires to promote even wear and extend their life. We also check tire condition and pressure and can advise on alignment if you notice uneven wear or steering pull. Proper tire care improves safety and fuel economy.</p>
+
+	<h2>General Maintenance</h2>
+	<p>From fluid top-ups and belt replacements to battery checks and wiper replacement, we cover the small jobs that keep your car on the road. We follow manufacturer guidelines and use quality parts so you can drive with confidence.</p>
+
+	<h2>Why Choose Fakhar Auto Workshop</h2>
+	<p>We offer honest advice and fair pricing. Whether you need a quick oil change or a full brake job, you get the same attention to detail. For oil change, brakes, tires, and general maintenance in Islamabad, call or visit Fakhar Auto Workshop.</p>
+</ServicePageLayout>

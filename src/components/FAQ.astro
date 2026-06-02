@@ -1,0 +1,120 @@
+---
+import { FAQ_ITEMS, SITE } from '../data/site';
+---
+
+<section class="section faq-section" id="faq">
+	<div class="layout">
+		<header class="faq-section__header">
+			<h2 class="section__title section__title--center">Didn't find what you're looking for?</h2>
+			<p class="section__intro section__intro--center">Send us your question and we'll respond shortly.</p>
+			<a
+				href={SITE.whatsappUrl}
+				class="btn btn--primary"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				Ask on WhatsApp
+			</a>
+		</header>
+		<div class="faq-grid">
+			{FAQ_ITEMS.map((item) => (
+				<details class="faq-item" name="faq">
+					<summary class="faq-item__q">
+						<span class="faq-item__label">{item.q}</span>
+						<span class="faq-item__toggle" aria-hidden="true"></span>
+					</summary>
+					<p class="faq-item__a">{item.a}</p>
+				</details>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq-section {
+		background: #ffffff;
+	}
+
+	.faq-section__header {
+		text-align: center;
+		margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+	}
+
+	.faq-section__header .section__intro {
+		margin-bottom: 1.75rem;
+	}
+
+	.faq-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+
+	@media (min-width: 768px) {
+		.faq-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 12px 16px;
+		}
+	}
+
+	.faq-item {
+		background: #ffffff;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		overflow: hidden;
+	}
+
+	.faq-item__q {
+		padding: 16px 18px;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		color: var(--color-text);
+		cursor: pointer;
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+	}
+
+	.faq-item__q::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item__label {
+		flex: 1;
+		min-width: 0;
+		text-align: left;
+	}
+
+	.faq-item__toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 32px;
+		height: 32px;
+		font-size: 1.125rem;
+		font-weight: 400;
+		line-height: 1;
+		color: var(--color-text-muted);
+		background: var(--color-bg-elevated);
+		border-radius: 8px;
+	}
+
+	.faq-item__toggle::before {
+		content: '+';
+	}
+
+	.faq-item[open] .faq-item__toggle::before {
+		content: '−';
+	}
+
+	.faq-item__a {
+		margin: 0;
+		padding: 0 18px 16px;
+		font-size: 0.9375rem;
+		color: var(--color-text-muted);
+		line-height: 1.65;
+	}
+</style>

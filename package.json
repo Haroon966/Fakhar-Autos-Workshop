@@ -1,0 +1,20 @@
+{
+  "name": "faw",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fetch-reviews": "node scripts/fetch-google-reviews.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "@lucide/astro": "^0.574.0",
+    "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "google-maps-review-scraper": "^2.1.1"
+  }
+}

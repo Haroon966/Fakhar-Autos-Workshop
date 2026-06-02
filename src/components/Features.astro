@@ -1,0 +1,113 @@
+---
+import { SITE, FEATURES } from '../data/site';
+import FeatureIcon from './FeatureIcon.astro';
+---
+
+<section class="section features-section" aria-labelledby="features-heading">
+	<div class="layout features-section__grid">
+		<div class="features-section__intro">
+			<h2 id="features-heading" class="features-section__title">
+				Why {SITE.shortName} Stands Out
+			</h2>
+			<p class="features-section__lead">
+				Premium expertise, modern equipment, and trusted results for every repair.
+			</p>
+		</div>
+
+		<div class="features-grid">
+			{FEATURES.map((f) => (
+				<article class="feature-item">
+					<div class="feature-item__icon">
+						<FeatureIcon name={f.icon} />
+					</div>
+					<h3 class="feature-item__title">{f.title}</h3>
+					<p class="feature-item__desc">{f.desc}</p>
+				</article>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.features-section {
+		background: #ffffff;
+	}
+
+	.features-section__grid {
+		display: grid;
+		gap: 2.5rem;
+	}
+
+	@media (min-width: 900px) {
+		.features-section__grid {
+			grid-template-columns: minmax(240px, 1fr) minmax(0, 1.75fr);
+			gap: clamp(2.5rem, 6vw, 5rem);
+			align-items: start;
+		}
+	}
+
+	.features-section__title {
+		font-size: clamp(2rem, 4.5vw, 2.75rem);
+		font-weight: 700;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
+		margin: 0 0 1.25rem;
+		max-width: 12ch;
+		color: var(--color-text);
+	}
+
+	.features-section__lead {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.65;
+		color: var(--color-text-muted);
+		max-width: 32ch;
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+
+	@media (min-width: 520px) {
+		.features-grid {
+			grid-template-columns: repeat(2, 1fr);
+			column-gap: clamp(1.5rem, 4vw, 2.5rem);
+			row-gap: 2.25rem;
+		}
+	}
+
+	.feature-item {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		text-align: left;
+	}
+
+	.feature-item__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		margin-bottom: 1rem;
+		background: var(--color-bg-elevated);
+		border-radius: 10px;
+		color: var(--color-text);
+	}
+
+	.feature-item__title {
+		font-size: 0.9375rem;
+		font-weight: 700;
+		margin: 0 0 6px;
+		color: var(--color-text);
+	}
+
+	.feature-item__desc {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+	}
+</style>

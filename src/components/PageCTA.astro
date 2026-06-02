@@ -1,0 +1,14 @@
+---
+import QuoteCTA from './QuoteCTA.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+	buttonLabel?: string;
+	buttonHref?: string;
+}
+
+const { title, description, buttonLabel, buttonHref } = Astro.props;
+---
+
+<QuoteCTA title={title} description={description} buttonLabel={buttonLabel} buttonHref={buttonHref} />

@@ -1,0 +1,19 @@
+{
+	"name": "Fakhar Auto Workshop",
+	"short_name": "Fakhar Auto",
+	"description": "Professional auto repair services in Islamabad. Electrical, mechanical, denting, painting, AC repair.",
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"background_color": "#f8fafc",
+	"theme_color": "#f8fafc",
+	"lang": "en",
+	"icons": [
+		{
+			"src": "/logo-icon.jpg",
+			"sizes": "500x500",
+			"type": "image/jpeg",
+			"purpose": "any"
+		}
+	]
+}

@@ -1,0 +1,201 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import FAQ from '../components/FAQ.astro';
+import Testimonials from '../components/Testimonials.astro';
+import RepairCases from '../components/RepairCases.astro';
+import Features from '../components/Features.astro';
+import HeroSlideshow from '../components/HeroSlideshow.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import WorkshopGallery from '../components/WorkshopGallery.astro';
+import { SITE, SERVICES, PROCESS_STEPS } from '../data/site';
+import { getAutoRepairSchema, getFAQSchema, getWebSiteSchema } from '../data/schema';
+
+const title = `${SITE.name} | Premium Auto Repair in Islamabad`;
+const description =
+	'Expert auto repair in Islamabad. Electrical, mechanical, denting, painting, AC repair. Honest pricing, fast turnaround. Call ' + SITE.phoneDisplay;
+---
+
+<Layout
+	title={title}
+	description={description}
+	canonical={`${SITE.url}/`}
+	schema={[getWebSiteSchema(), getAutoRepairSchema(), getFAQSchema()]}
+	pageLayout="home"
+>
+	<section class="hero" aria-label="Welcome">
+		<HeroSlideshow />
+		<div class="hero__content layout">
+			<p class="hero__badge">{SITE.repairsCount} Successful Repairs</p>
+			<h1 class="hero__title">
+				Reliable Premium<br />
+				Car Repair in Islamabad
+			</h1>
+			<p class="hero__lead">Expert diagnostics and consistently dependable repairs for every vehicle.</p>
+			<div class="hero__ctas">
+				<a href="/services/" class="btn btn--primary">Explore Services</a>
+				<a href={`tel:${SITE.phone}`} class="btn btn--secondary">Call {SITE.phoneDisplay}</a>
+			</div>
+		</div>
+	</section>
+
+	<Features />
+
+	<section class="section services-section" aria-labelledby="services-heading">
+		<div class="layout">
+			<div class="section__header">
+				<h2 id="services-heading" class="section__title">Premium Maintenance for Every Vehicle</h2>
+				<p class="section__intro">
+					Expert care for performance, safety, and long-term reliability across all makes and models.
+				</p>
+			</div>
+			<div class="services-grid">
+				{SERVICES.map((s) => (
+					<ServiceCard slug={s.slug} name={s.name} shortDesc={s.shortDesc} image={s.image} />
+				))}
+			</div>
+			<p class="services-section__more">
+				<a href="/services/" class="btn btn--ghost">View All Services</a>
+			</p>
+		</div>
+	</section>
+
+	<section class="section process-section" aria-labelledby="process-heading">
+		<div class="layout">
+			<div class="section__header section__header--center">
+				<h2 id="process-heading" class="section__title section__title--center">
+					How We <span class="heading-accent">Work</span>
+				</h2>
+				<p class="section__intro section__intro--center">
+					A streamlined workflow that delivers consistent, reliable results every time.
+				</p>
+			</div>
+			<div class="process-grid">
+				{PROCESS_STEPS.map((step) => (
+					<article class="process-card">
+						<span class="process-card__num">{step.step}</span>
+						<h3 class="process-card__title">{step.title}</h3>
+						<p class="process-card__desc">{step.desc}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<RepairCases />
+
+	<Testimonials />
+
+	<WorkshopGallery />
+
+	<section class="section map-section" aria-labelledby="map-heading">
+		<div class="layout">
+			<div class="section__header section__header--center">
+				<h2 id="map-heading" class="section__title section__title--center">
+					Visit Our <span class="heading-accent">Workshop</span>
+				</h2>
+				<p class="section__intro section__intro--center">
+					{SITE.addressSingleLine} — open {SITE.hours.toLowerCase()}.
+				</p>
+			</div>
+			<MapEmbed height={380} />
+		</div>
+	</section>
+
+	<FAQ />
+</Layout>
+
+<style>
+	.hero {
+		position: relative;
+		min-height: 100svh;
+		display: flex;
+		align-items: flex-end;
+		padding-bottom: clamp(4rem, 12vh, 6rem);
+		padding-top: calc(100px + var(--safe-top));
+	}
+	.hero__content {
+		position: relative;
+		z-index: 2;
+		width: 100%;
+		pointer-events: none;
+	}
+	.hero__content :is(a, button) {
+		pointer-events: auto;
+	}
+	.hero__badge {
+		display: inline-block;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: var(--color-cta);
+		background: rgba(220, 38, 38, 0.08);
+		border: 1px solid rgba(220, 38, 38, 0.2);
+		padding: 8px 16px;
+		border-radius: var(--radius-pill);
+		margin: 0 0 1.5rem;
+	}
+	.hero__title {
+		font-size: clamp(2.5rem, 7vw, 4.25rem);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.03em;
+		margin: 0 0 1.25rem;
+		max-width: 14ch;
+	}
+	.hero__lead {
+		font-size: clamp(1rem, 2vw, 1.1875rem);
+		color: var(--color-text-muted);
+		max-width: 42ch;
+		margin: 0 0 2rem;
+		line-height: 1.65;
+	}
+	.hero__ctas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+	.services-section__more {
+		text-align: center;
+		margin: 2.5rem 0 0;
+	}
+	.process-grid {
+		display: grid;
+		gap: 20px;
+	}
+	@media (min-width: 768px) {
+		.process-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 24px;
+		}
+	}
+	.process-card {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: 32px 28px;
+		box-shadow: var(--color-shadow);
+	}
+	.process-card__num {
+		display: block;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		margin-bottom: 1.25rem;
+	}
+	.process-card__title {
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin: 0 0 10px;
+	}
+	.process-card__desc {
+		margin: 0;
+		font-size: 0.9375rem;
+		color: var(--color-text-muted);
+		line-height: 1.6;
+	}
+	.map-section {
+		border-top: 1px solid var(--color-border);
+		background: var(--color-surface);
+	}
+</style>

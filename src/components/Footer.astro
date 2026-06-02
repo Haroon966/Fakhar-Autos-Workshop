@@ -1,0 +1,141 @@
+---
+import { SITE, SERVICES } from '../data/site';
+import QuoteCTA from './QuoteCTA.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+	<QuoteCTA />
+	<div class="footer__main layout">
+		<div class="footer__brand">
+			<a href="/" class="footer__logo">{SITE.shortName}</a>
+			<p class="footer__copy">© {year} {SITE.name}. All rights reserved.</p>
+		</div>
+		<div class="footer__col">
+			<h3 class="footer__heading">Navigation</h3>
+			<ul class="footer__links">
+				<li><a href="/">Home</a></li>
+				<li><a href="/services/">Services</a></li>
+				<li><a href="/about/">About</a></li>
+				<li><a href="/contact/">Contact</a></li>
+			</ul>
+		</div>
+		<div class="footer__col">
+			<h3 class="footer__heading">Services</h3>
+			<ul class="footer__links">
+				{SERVICES.slice(0, 4).map((s) => (
+					<li><a href={`/services/${s.slug}/`}>{s.name}</a></li>
+				))}
+			</ul>
+		</div>
+		<div class="footer__col">
+			<h3 class="footer__heading">Contact</h3>
+			<ul class="footer__links footer__contact">
+				<li><a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a></li>
+				<li><a href={SITE.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+				<li><a href={SITE.facebookUrl} target="_blank" rel="noopener noreferrer">Facebook</a></li>
+				<li><a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">{SITE.addressSingleLine}</a></li>
+				<li>{SITE.hours}</li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer__credit">
+		<div class="layout footer__credit-inner">
+			<p class="footer__credit-text">
+				{SITE.credit.label} <strong class="footer__credit-name">{SITE.credit.name}</strong>
+			</p>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		margin-top: 0;
+		border-top: 1px solid var(--color-border);
+	}
+	.footer .quote-cta {
+		padding-top: clamp(2.5rem, 6vw, 4rem);
+		padding-bottom: clamp(2rem, 5vw, 3rem);
+		background: var(--color-bg);
+		border-bottom: 1px solid var(--color-border);
+	}
+	.footer__main {
+		display: grid;
+		gap: 2.5rem;
+		padding: 3rem 20px 2.5rem;
+	}
+	.footer__logo {
+		font-size: 1.125rem;
+		font-weight: 700;
+		color: var(--color-text);
+		cursor: pointer;
+	}
+	.footer__logo:hover {
+		text-decoration: none;
+		opacity: 0.85;
+	}
+	.footer__copy {
+		margin: 0.75rem 0 0;
+		font-size: 0.8125rem;
+		color: var(--color-text-muted);
+	}
+	.footer__heading {
+		font-size: 0.8125rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-text-muted);
+		margin: 0 0 1rem;
+	}
+	.footer__links {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.footer__links a {
+		color: var(--color-text-muted);
+		font-size: 0.9375rem;
+		cursor: pointer;
+	}
+	.footer__links a:hover {
+		color: var(--color-cta);
+		text-decoration: none;
+	}
+	.footer__contact li {
+		font-size: 0.9375rem;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+	}
+	@media (min-width: 768px) {
+		.footer__main {
+			grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+			gap: 2rem;
+		}
+	}
+	.footer__credit {
+		border-top: 1px solid var(--color-border);
+		background: var(--color-bg-elevated);
+		padding: 1rem 20px;
+	}
+	.footer__credit-inner {
+		text-align: center;
+	}
+	.footer__credit-text {
+		margin: 0;
+		font-size: 0.8125rem;
+		color: var(--color-text-muted);
+		letter-spacing: 0.01em;
+	}
+	.footer__credit-name {
+		font-weight: 600;
+		color: var(--color-primary);
+		text-decoration: none;
+	}
+	.footer__credit-name:hover {
+		color: var(--color-cta);
+		text-decoration: underline;
+	}
+</style>

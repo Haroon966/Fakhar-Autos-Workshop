@@ -1,0 +1,382 @@
+---
+import { TESTIMONIALS, GOOGLE_REVIEWS_SUMMARY, SITE } from '../data/site';
+
+function getInitials(name: string) {
+	return name
+		.split(/\s+/)
+		.map((part) => part.replace(/\./g, '')[0])
+		.filter(Boolean)
+		.slice(0, 2)
+		.join('')
+		.toUpperCase();
+}
+
+const showDots = TESTIMONIALS.length <= 8;
+---
+
+<section class="section testimonials-section" aria-labelledby="testimonials-heading">
+	<div class="layout">
+		<div class="section__header section__header--center">
+			<p class="testimonials-eyebrow">
+				<span class="testimonials-eyebrow__rating" aria-hidden="true">{GOOGLE_REVIEWS_SUMMARY.rating}</span>
+				<span class="testimonials-eyebrow__stars" aria-label={`${GOOGLE_REVIEWS_SUMMARY.rating} out of 5 stars`}>
+					{Array.from({ length: 5 }).map((_, i) => (
+						<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+							<path
+								fill={i < Math.round(GOOGLE_REVIEWS_SUMMARY.rating) ? 'currentColor' : 'none'}
+								stroke="currentColor"
+								stroke-width="1.5"
+								d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+							/>
+						</svg>
+					))}
+				</span>
+				<a class="testimonials-eyebrow__link" href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
+					{GOOGLE_REVIEWS_SUMMARY.count} Google reviews
+				</a>
+			</p>
+			<h2 id="testimonials-heading" class="section__title section__title--center">
+				What Our <span class="heading-accent">Customers</span> Say
+			</h2>
+		</div>
+
+		<div class="testimonial-slider" data-testimonial-slider>
+			<div class="testimonial-card">
+				{TESTIMONIALS.map((t, i) => (
+					<article
+						class="testimonial-slide"
+						data-slide
+						hidden={i !== 0}
+						aria-hidden={i !== 0 ? 'true' : 'false'}
+					>
+						<div class="testimonial-stars" aria-label={`${t.rating} out of 5 stars`}>
+							{Array.from({ length: 5 }).map((_, starIndex) => (
+								<svg
+									class="testimonial-stars__icon"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<path
+										fill={starIndex < t.rating ? 'currentColor' : 'none'}
+										stroke="currentColor"
+										stroke-width="1.5"
+										d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+									/>
+								</svg>
+							))}
+						</div>
+						<blockquote class="testimonial-quote">
+							<p>"{t.quote}"</p>
+						</blockquote>
+						<footer class="testimonial-author">
+							<div class="testimonial-avatar" aria-hidden="true">
+								<span>{getInitials(t.name)}</span>
+							</div>
+							<cite class="testimonial-author__name">{t.name}</cite>
+							<p class="testimonial-author__role">{t.role}</p>
+						</footer>
+					</article>
+				))}
+			</div>
+
+			<div class="testimonial-controls">
+				<button type="button" class="testimonial-nav" data-prev aria-label="Previous review">
+					<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+					</svg>
+				</button>
+
+				{showDots ? (
+					<div class="testimonial-dots" role="tablist" aria-label="Testimonials">
+						{TESTIMONIALS.map((_, i) => (
+							<button
+								type="button"
+								class="testimonial-dots__btn"
+								data-dot={i}
+								role="tab"
+								aria-selected={i === 0 ? 'true' : 'false'}
+								aria-label={`Show testimonial ${i + 1} of ${TESTIMONIALS.length}`}
+							/>
+						))}
+					</div>
+				) : (
+					<p class="testimonial-counter" data-counter aria-live="polite">
+						1 / {TESTIMONIALS.length}
+					</p>
+				)}
+
+				<button type="button" class="testimonial-nav" data-next aria-label="Next review">
+					<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d="m10 6-1.41 1.41L13.17 12l-4.58 4.59L10 18l6-6z" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.testimonials-section {
+		background: #ffffff;
+	}
+
+	.testimonials-eyebrow {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem 0.75rem;
+		margin: 0 0 0.75rem;
+		font-size: 0.875rem;
+		color: var(--color-text-muted);
+	}
+
+	.testimonials-eyebrow__rating {
+		font-weight: 700;
+		font-size: 1rem;
+		color: var(--color-text);
+	}
+
+	.testimonials-eyebrow__stars {
+		display: inline-flex;
+		gap: 2px;
+		color: #f59e0b;
+	}
+
+	.testimonials-eyebrow__link {
+		color: var(--color-text-muted);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.testimonials-eyebrow__link:hover {
+		color: var(--color-cta);
+	}
+
+	.testimonial-slider {
+		max-width: min(1200px, 100%);
+		margin: 0 auto;
+	}
+
+	.testimonial-card {
+		background: var(--color-bg-elevated);
+		border-radius: var(--radius-xl);
+		padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.5rem);
+		text-align: center;
+	}
+
+	.testimonial-slide {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.testimonial-slide[hidden] {
+		display: none;
+	}
+
+	.testimonial-stars {
+		display: flex;
+		justify-content: center;
+		gap: 4px;
+		margin-bottom: 1.5rem;
+		color: #f59e0b;
+	}
+
+	.testimonial-stars__icon {
+		display: block;
+	}
+
+	.testimonial-quote {
+		margin: 0 0 1.75rem;
+		padding: 0;
+		border: none;
+		max-width: 56ch;
+	}
+
+	.testimonial-quote p {
+		margin: 0;
+		font-size: clamp(1.0625rem, 2.5vw, 1.25rem);
+		font-weight: 700;
+		line-height: 1.45;
+		color: var(--color-text);
+		letter-spacing: -0.01em;
+		white-space: pre-line;
+	}
+
+	.testimonial-author {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0;
+		margin: 0;
+	}
+
+	.testimonial-avatar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		margin-bottom: 10px;
+		border-radius: 50%;
+		background: var(--color-surface);
+		border: 2px solid #ffffff;
+		box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		overflow: hidden;
+	}
+
+	.testimonial-author__name {
+		font-style: normal;
+		font-weight: 700;
+		font-size: 0.9375rem;
+		color: var(--color-text);
+		margin-bottom: 2px;
+	}
+
+	.testimonial-author__role {
+		margin: 0;
+		font-size: 0.8125rem;
+		color: var(--color-text-muted);
+	}
+
+	.testimonial-controls {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
+
+	.testimonial-nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		border: 1px solid var(--color-border-strong);
+		border-radius: 50%;
+		background: #ffffff;
+		color: var(--color-text);
+		cursor: pointer;
+		transition: background 0.2s ease, border-color 0.2s ease;
+	}
+
+	.testimonial-nav:hover {
+		background: var(--color-surface);
+		border-color: var(--color-text-muted);
+	}
+
+	.testimonial-nav:focus-visible {
+		outline: 2px solid var(--color-cta);
+		outline-offset: 2px;
+	}
+
+	.testimonial-dots {
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		flex-wrap: wrap;
+		max-width: 200px;
+	}
+
+	.testimonial-dots__btn {
+		width: 8px;
+		height: 8px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: var(--color-border-strong);
+		cursor: pointer;
+		transition: background 0.2s ease, transform 0.2s ease;
+	}
+
+	.testimonial-dots__btn:hover {
+		background: var(--color-text-muted);
+	}
+
+	.testimonial-dots__btn[aria-selected='true'] {
+		background: var(--color-text);
+	}
+
+	.testimonial-dots__btn:focus-visible {
+		outline: 2px solid var(--color-cta);
+		outline-offset: 2px;
+	}
+
+	.testimonial-counter {
+		margin: 0;
+		min-width: 4.5rem;
+		text-align: center;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-text-muted);
+	}
+</style>
+
+<script>
+	function initTestimonialSlider(root: HTMLElement) {
+		const slides = root.querySelectorAll<HTMLElement>('[data-slide]');
+		const dots = root.querySelectorAll<HTMLButtonElement>('[data-dot]');
+		const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
+		const next = root.querySelector<HTMLButtonElement>('[data-next]');
+		const counter = root.querySelector<HTMLElement>('[data-counter]');
+		if (!slides.length) return;
+
+		let current = 0;
+		let timer: ReturnType<typeof setInterval> | undefined;
+
+		function updateCounter() {
+			if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
+		}
+
+		function goTo(index: number) {
+			const nextIndex = ((index % slides.length) + slides.length) % slides.length;
+			if (nextIndex === current) return;
+
+			slides[current].hidden = true;
+			slides[current].setAttribute('aria-hidden', 'true');
+			if (dots[current]) dots[current].setAttribute('aria-selected', 'false');
+
+			current = nextIndex;
+
+			slides[current].hidden = false;
+			slides[current].setAttribute('aria-hidden', 'false');
+			if (dots[current]) dots[current].setAttribute('aria-selected', 'true');
+			updateCounter();
+		}
+
+		dots.forEach((dot, i) => {
+			dot.addEventListener('click', () => {
+				goTo(i);
+				resetAuto();
+			});
+		});
+
+		prev?.addEventListener('click', () => {
+			goTo(current - 1);
+			resetAuto();
+		});
+
+		next?.addEventListener('click', () => {
+			goTo(current + 1);
+			resetAuto();
+		});
+
+		function resetAuto() {
+			if (timer) clearInterval(timer);
+			timer = setInterval(() => goTo(current + 1), 6000);
+		}
+
+		updateCounter();
+		resetAuto();
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-testimonial-slider]').forEach(initTestimonialSlider);
+</script>

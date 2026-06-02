@@ -1,0 +1,29 @@
+---
+import ServicePageLayout from '../../components/ServicePageLayout.astro';
+import { getServiceSchema } from '../../data/schema';
+
+const title = `Car AC Repair Islamabad | Fakhar Auto Workshop`;
+const description = 'Air conditioning diagnostics, repair, and recharging in Islamabad. Get your car AC fixed quickly at Fakhar Auto Workshop.';
+---
+
+<ServicePageLayout
+	title={title}
+	description={description}
+	serviceName="AC Repair"
+	heading="Car AC Repair"
+	lead="Air conditioning diagnostics, repair, and recharging. We get your car's AC cooling again with proper diagnosis and quality repairs."
+	slug="ac-repair"
+	serviceSchema={getServiceSchema('Car AC Repair', description, 'ac-repair')}
+>
+	<h2>AC Services We Offer</h2>
+	<p>Fakhar Auto Workshop offers full car air conditioning services in Islamabad. If your AC is not cooling, blowing warm air, making noise, or has a bad smell, we can diagnose and fix the problem. Our technicians are trained to work on modern AC systems and use the right equipment for testing and recharging.</p>
+
+	<h2>Diagnostics and Repair</h2>
+	<p>We check refrigerant levels, look for leaks, and test the compressor, condenser, and evaporator. Common issues we fix include refrigerant leaks, faulty compressors, blocked or damaged condensers, and electrical faults. We repair or replace components as needed and recharge the system with the correct refrigerant so your AC performs as it should.</p>
+
+	<h2>Recharging and Maintenance</h2>
+	<p>Over time, refrigerant can leak or degrade. We evacuate and recharge systems with the proper type and amount of refrigerant. We also clean or replace cabin filters and check belts and hoses so your AC runs efficiently and the cabin stays fresh.</p>
+
+	<h2>Why Choose Us for AC Work</h2>
+	<p>We use proper recovery and recharge equipment and follow environmental and safety practices. You get a clear explanation of the problem and the fix, with no unnecessary parts. For car AC repair in Islamabad, contact Fakhar Auto Workshop.</p>
+</ServicePageLayout>

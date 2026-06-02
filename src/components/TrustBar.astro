@@ -1,0 +1,20 @@
+---
+import { FEATURES } from '../data/site';
+import FeatureIcon from './FeatureIcon.astro';
+---
+
+<section class="trust-bar" aria-label="Why choose us">
+	<div class="layout trust-bar__grid">
+		{FEATURES.map((f) => (
+			<div class="trust-bar__item">
+				<span class="trust-bar__icon" aria-hidden="true">
+					<FeatureIcon name={f.icon} />
+				</span>
+				<div>
+					<p class="trust-bar__title">{f.title}</p>
+					<p class="trust-bar__desc">{f.desc}</p>
+				</div>
+			</div>
+		))}
+	</div>
+</section>

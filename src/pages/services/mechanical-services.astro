@@ -1,0 +1,29 @@
+---
+import ServicePageLayout from '../../components/ServicePageLayout.astro';
+import { getServiceSchema } from '../../data/schema';
+
+const title = `Mechanical Services | Engine & Transmission | Fakhar Auto Workshop`;
+const description = 'Expert engine repairs, transmission work, and general mechanical maintenance in Islamabad. Quality service at Fakhar Auto Workshop.';
+---
+
+<ServicePageLayout
+	title={title}
+	description={description}
+	serviceName="Mechanical Services"
+	heading="Mechanical Services"
+	lead="Expert engine repairs, transmission work, and general maintenance. We keep your vehicle running safely and efficiently with skilled mechanical repairs and quality parts."
+	slug="mechanical-services"
+	serviceSchema={getServiceSchema('Mechanical Services', description, 'mechanical-services')}
+>
+	<h2>Engine Repairs</h2>
+	<p>From minor tune-ups to major engine work, our technicians at Fakhar Auto Workshop handle a full range of engine-related repairs. We diagnose check-engine lights, perform compression tests, and carry out timing belt replacements, head gasket repairs, and engine rebuilds when necessary. All work is done with care and precision to extend the life of your engine.</p>
+
+	<h2>Transmission Work</h2>
+	<p>Manual and automatic transmission repairs, including clutch replacement, gearbox overhaul, and fluid changes. We identify transmission problems early to avoid costly failures and recommend the right fix for your vehicle and budget.</p>
+
+	<h2>General Mechanical Maintenance</h2>
+	<p>Routine maintenance is key to reliability. We offer oil and filter changes, brake pad and disc replacement, suspension and steering repairs, and exhaust system work. Our team follows manufacturer guidelines and uses quality parts so your car stays in good shape for longer.</p>
+
+	<h2>Why Choose Fakhar Auto Workshop</h2>
+	<p>We combine experience with proper tools and genuine or high-quality parts. Whether you need a simple service or a major repair, you get honest advice and dependable work. For mechanical services in Islamabad, call or visit Fakhar Auto Workshop.</p>
+</ServicePageLayout>

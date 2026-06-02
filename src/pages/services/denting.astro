@@ -1,0 +1,29 @@
+---
+import ServicePageLayout from '../../components/ServicePageLayout.astro';
+import { getServiceSchema } from '../../data/schema';
+
+const title = `Denting & Body Work Islamabad | Fakhar Auto Workshop`;
+const description = 'Professional dent removal and body work restoration in Islamabad. Paintless dent repair and panel work at Fakhar Auto Workshop.';
+---
+
+<ServicePageLayout
+	title={title}
+	description={description}
+	serviceName="Denting"
+	heading="Denting & Body Work"
+	lead="Professional dent removal and body work restoration. We restore your vehicle's appearance with skilled denting and panel repair so it looks and feels like new again."
+	slug="denting"
+	serviceSchema={getServiceSchema('Denting & Body Work', description, 'denting')}
+>
+	<h2>Our Denting Services</h2>
+	<p>Fakhar Auto Workshop offers full denting and body work services in Islamabad. Whether you have small dents from car park bumps or larger damage from a collision, our team can assess the damage and recommend the best approach—paintless dent repair where possible, or traditional panel beating and filling when needed.</p>
+
+	<h2>Paintless Dent Repair (PDR)</h2>
+	<p>Where the paint is intact, we use paintless dent repair techniques to massage dents out from the inside or with specialised tools. This preserves the original paint and is often faster and more cost-effective than repainting. We use PDR for door dings, hail damage, and other small to medium dents when the panel is accessible.</p>
+
+	<h2>Panel Beating and Restoration</h2>
+	<p>For more serious damage, we straighten panels, replace damaged sections, and prepare surfaces for painting. Our workshop is equipped to handle everything from minor dents to major collision repair, always aiming for a finish that matches the rest of your vehicle.</p>
+
+	<h2>Why Choose Us</h2>
+	<p>We take pride in the quality of our body work and use proven methods and materials. Your car is treated with care from assessment to delivery. For denting and body work in Islamabad, contact Fakhar Auto Workshop.</p>
+</ServicePageLayout>

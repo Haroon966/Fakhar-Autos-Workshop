@@ -1,0 +1,32 @@
+---
+import ServicePageLayout from '../../components/ServicePageLayout.astro';
+import { getServiceSchema } from '../../data/schema';
+
+const title = `Electrical Repairs Islamabad | Fakhar Auto Workshop`;
+const description = 'Complete electrical diagnostics and repairs for all vehicle systems in Islamabad. Battery, alternator, wiring, and more. Expert service at Fakhar Auto Workshop.';
+---
+
+<ServicePageLayout
+	title={title}
+	description={description}
+	serviceName="Electrical Repairs"
+	heading="Electrical Repairs"
+	lead="Complete electrical diagnostics and repairs for all vehicle systems. Our technicians use modern diagnostic equipment to pinpoint and fix electrical issues quickly and reliably."
+	slug="electrical-repairs"
+	serviceSchema={getServiceSchema('Electrical Repairs', description, 'electrical-repairs')}
+>
+	<h2>What We Offer</h2>
+	<p>From battery and alternator problems to faulty wiring and blown fuses, Fakhar Auto Workshop provides full electrical repair services for cars and light vehicles in Islamabad. We handle everything from dashboard warning lights and starting issues to interior lighting, power windows, and central locking systems.</p>
+
+	<h2>Common Electrical Repairs</h2>
+	<ul>
+		<li><strong>Battery testing and replacement</strong> – We test your battery and charging system and fit quality replacements when needed.</li>
+		<li><strong>Alternator and starter motor</strong> – Diagnosis and repair or replacement so your vehicle starts and charges reliably.</li>
+		<li><strong>Wiring and fuse issues</strong> – Tracing shorts, repairing damaged wiring, and replacing fuses to restore full function.</li>
+		<li><strong>Lighting</strong> – Headlights, taillights, indicators, and interior lights repaired or replaced.</li>
+		<li><strong>Power accessories</strong> – Power windows, mirrors, and central locking diagnosed and repaired.</li>
+	</ul>
+
+	<h2>Why Choose Us for Electrical Work</h2>
+	<p>Our team uses up-to-date diagnostic tools and follows best practices to avoid unnecessary parts replacement. We use genuine or high-quality parts where needed and stand behind our work. If you are in Islamabad and your car has an electrical fault, bring it to Fakhar Auto Workshop for a clear diagnosis and reliable repair.</p>
+</ServicePageLayout>

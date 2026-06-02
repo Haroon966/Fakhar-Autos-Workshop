@@ -1,0 +1,205 @@
+---
+import { SITE, QUOTE_CTA_IMAGES } from '../data/site';
+
+interface Props {
+	title?: string;
+	description?: string;
+	buttonLabel?: string;
+	buttonHref?: string;
+}
+
+const {
+	title = 'Get Your Free Repair Quote',
+	description = 'Quick, transparent pricing with no obligation.',
+	buttonLabel = 'Ask on WhatsApp',
+	buttonHref = SITE.whatsappUrl,
+} = Astro.props;
+---
+
+<section class="quote-cta" aria-label="Get a repair quote">
+	<div class="layout quote-cta__wrap">
+		<div class="quote-cta__card">
+			<div class="quote-cta__slideshow" data-quote-slideshow aria-hidden="true">
+				{QUOTE_CTA_IMAGES.map((slide, i) => (
+					<div
+						class:list={['quote-cta__slide', { 'quote-cta__slide--active': i === 0 }]}
+						data-slide={i}
+					>
+						<img
+							src={slide.src}
+							alt=""
+							width="1400"
+							height="700"
+							loading={i === 0 ? 'eager' : 'lazy'}
+							decoding="async"
+						/>
+					</div>
+				))}
+			</div>
+			<div class="quote-cta__overlay" aria-hidden="true"></div>
+			<div class="quote-cta__content">
+				<h2 class="quote-cta__title">{title}</h2>
+				<p class="quote-cta__desc">{description}</p>
+				<a
+					href={buttonHref}
+					class="btn btn--primary quote-cta__btn"
+					target={buttonHref.startsWith('http') ? '_blank' : undefined}
+					rel={buttonHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+				>
+					{buttonLabel}
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.quote-cta {
+		padding: 0 0 clamp(2.5rem, 6vw, 4rem);
+	}
+	.quote-cta__wrap {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.quote-cta__card {
+		position: relative;
+		min-height: clamp(280px, 42vw, 420px);
+		border-radius: var(--radius-xl);
+		overflow: hidden;
+		background: #0a0a0a;
+	}
+	.quote-cta__slideshow {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+	.quote-cta__slide {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		transition: opacity 1.2s ease;
+	}
+	.quote-cta__slide--active {
+		opacity: 1;
+		z-index: 1;
+	}
+	.quote-cta__slide img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 45%;
+		transform: scale(1);
+		transition: transform 7s ease;
+	}
+	.quote-cta__slide--active img {
+		transform: scale(1.08);
+	}
+	.quote-cta__overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.05) 0%,
+			rgba(0, 0, 0, 0.25) 45%,
+			rgba(0, 0, 0, 0.75) 75%,
+			rgba(0, 0, 0, 0.92) 100%
+		);
+		pointer-events: none;
+	}
+	.quote-cta__content {
+		position: relative;
+		z-index: 3;
+		min-height: inherit;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-end;
+		gap: 0;
+		padding: clamp(1.5rem, 4vw, 2.75rem);
+		max-width: 36rem;
+	}
+	.quote-cta__title {
+		margin: 0 0 0.5rem;
+		font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		color: #ffffff;
+	}
+	.quote-cta__desc {
+		margin: 0 0 1.25rem;
+		font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.88);
+		max-width: 28ch;
+	}
+	.quote-cta__btn:focus-visible {
+		outline-color: #ffffff;
+		outline-offset: 3px;
+	}
+	@media (min-width: 768px) {
+		.quote-cta__card {
+			min-height: 380px;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.quote-cta__slide {
+			transition: none;
+		}
+		.quote-cta__slide img {
+			transition: none;
+			transform: scale(1) !important;
+		}
+	}
+</style>
+
+<script>
+	function initQuoteSlideshow(root: HTMLElement) {
+		const slides = root.querySelectorAll<HTMLElement>('[data-slide]');
+		const total = slides.length;
+		if (total < 2) return;
+
+		let current = 0;
+		let timer: ReturnType<typeof setInterval> | null = null;
+		const intervalMs = 5000;
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		const setSlide = (index: number) => {
+			current = (index + total) % total;
+			slides.forEach((slide, i) => {
+				slide.classList.toggle('quote-cta__slide--active', i === current);
+			});
+		};
+
+		const next = () => setSlide(current + 1);
+
+		const start = () => {
+			if (reducedMotion) return;
+			stop();
+			timer = setInterval(next, intervalMs);
+		};
+
+		const stop = () => {
+			if (timer) {
+				clearInterval(timer);
+				timer = null;
+			}
+		};
+
+		const card = root.closest('.quote-cta__card');
+		card?.addEventListener('mouseenter', stop);
+		card?.addEventListener('mouseleave', start);
+		card?.addEventListener('focusin', stop);
+		card?.addEventListener('focusout', start);
+
+		document.addEventListener('visibilitychange', () => {
+			if (document.hidden) stop();
+			else start();
+		});
+
+		start();
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-quote-slideshow]').forEach(initQuoteSlideshow);
+</script>

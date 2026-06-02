@@ -1,0 +1,41 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+
+interface Crumb {
+	label: string;
+	href?: string;
+}
+
+interface Props {
+	title: string;
+	lead?: string;
+	eyebrow?: string;
+	breadcrumbs: Crumb[];
+	image?: string;
+	imageAlt?: string;
+}
+
+const { title, lead, eyebrow, breadcrumbs, image, imageAlt = '' } = Astro.props;
+const hasImage = Boolean(image);
+---
+
+<header class:list={['page-hero', { 'page-hero--with-image': hasImage }]}>
+	<div class="layout">
+		<Breadcrumb items={breadcrumbs} />
+		<div class="page-hero__grid">
+			<div class="page-hero__content">
+				{eyebrow && <p class="page-hero__eyebrow">{eyebrow}</p>}
+				<h1 class="page-hero__title">{title}</h1>
+				{lead && <p class="page-hero__lead">{lead}</p>}
+				<div class="page-hero__actions">
+					<slot name="actions" />
+				</div>
+			</div>
+			{hasImage && (
+				<div class="page-hero__media">
+					<img src={image} alt={imageAlt} width="800" height="500" loading="eager" />
+				</div>
+			)}
+		</div>
+	</div>
+</header>

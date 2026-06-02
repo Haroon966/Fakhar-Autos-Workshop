@@ -1,0 +1,45 @@
+---
+import { SITE, SERVICES } from '../data/site';
+
+interface Props {
+	currentSlug: string;
+}
+
+const { currentSlug } = Astro.props;
+---
+
+<aside class="page__sidebar" aria-label="Service information">
+	<div class="sidebar-card">
+		<h2 class="sidebar-card__title">Book This Service</h2>
+		<p class="sidebar-meta">Get a free estimate. We explain the issue and quote before any work starts.</p>
+		<div class="sidebar-card__actions">
+			<a href={SITE.whatsappUrl} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
+				Ask on WhatsApp
+			</a>
+			<a href={`tel:${SITE.phone}`} class="btn btn--secondary">Call {SITE.phoneDisplay}</a>
+		</div>
+	</div>
+	<div class="sidebar-card">
+		<h2 class="sidebar-card__title">Workshop Hours</h2>
+		<p class="sidebar-meta">{SITE.hours}</p>
+		<p class="sidebar-meta">
+			<a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">{SITE.addressSingleLine}</a>
+		</p>
+	</div>
+	<div class="sidebar-card">
+		<h2 class="sidebar-card__title">All Services</h2>
+		<ul class="sidebar-list">
+			{SERVICES.map((s) => (
+				<li>
+					<a
+						href={`/services/${s.slug}/`}
+						aria-current={s.slug === currentSlug ? 'page' : undefined}
+					>
+						{s.name}
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+</aside>

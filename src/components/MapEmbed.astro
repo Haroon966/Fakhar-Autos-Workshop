@@ -1,0 +1,58 @@
+---
+import { SITE } from '../data/site';
+
+interface Props {
+	title?: string;
+	height?: number;
+	showLink?: boolean;
+}
+
+const { title = 'Fakhar Auto Workshop location on Google Maps', height = 360, showLink = true } = Astro.props;
+const embedSrc =
+	'https://www.google.com/maps?q=33.6836888,72.9911038&hl=en&z=17&output=embed';
+---
+
+<div class="map-embed">
+	<iframe
+		title={title}
+		src={embedSrc}
+		width="100%"
+		height={height}
+		style="border:0;"
+		allowfullscreen=""
+		loading="lazy"
+		referrerpolicy="no-referrer-when-downgrade"
+	></iframe>
+	{showLink && (
+		<p class="map-embed__link">
+			<a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
+				Open in Google Maps →
+			</a>
+		</p>
+	)}
+</div>
+
+<style>
+	.map-embed {
+		width: 100%;
+	}
+	.map-embed iframe {
+		display: block;
+		width: 100%;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--color-shadow);
+		border: 1px solid var(--color-border);
+	}
+	.map-embed__link {
+		margin: 12px 0 0;
+		font-size: 0.875rem;
+	}
+	.map-embed__link a {
+		color: var(--color-text-muted);
+		font-weight: 500;
+	}
+	.map-embed__link a:hover {
+		color: var(--color-cta);
+		text-decoration: none;
+	}
+</style>
