@@ -1,4 +1,6 @@
 ---
+import { routeUrl } from '../utils/paths';
+
 interface Props {
 	slug: string;
 	name: string;
@@ -9,7 +11,7 @@ interface Props {
 const { slug, name, shortDesc, image } = Astro.props;
 ---
 
-<a href={`/services/${slug}/`} class="service-card">
+<a href={routeUrl(`/services/${slug}/`)} class="service-card">
 	{image && (
 		<div class="service-card__media">
 			<img src={image} alt={`${name} at Fakhar Auto Workshop`} loading="lazy" width="400" height="240" />

@@ -4,6 +4,7 @@ import '../styles/pages.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../data/site';
+import { assetUrl } from '../utils/paths';
 
 interface Props {
 	title: string;
@@ -26,8 +27,11 @@ const {
 	schema,
 	pageLayout = 'page',
 } = Astro.props;
-const canonicalUrl = canonical ? new URL(canonical, SITE.url).href : new URL(Astro.url.pathname, SITE.url).href;
-const ogImageUrl = new URL(image, SITE.url).href;
+const canonicalUrl =
+	canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = image.startsWith('http')
+	? image
+	: new URL(image, Astro.site).href;
 const schemas = schema == null ? [] : Array.isArray(schema) ? schema : [schema];
 const isHome = pageLayout === 'home';
 ---
@@ -38,7 +42,7 @@ const isHome = pageLayout === 'home';
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/jpeg" href={SITE.icon} />
 		<link rel="apple-touch-icon" href={SITE.icon} />
-		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="manifest" href={assetUrl('/site.webmanifest')} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="theme-color" content="#f8fafc" />

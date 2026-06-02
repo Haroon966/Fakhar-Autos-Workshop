@@ -4,21 +4,22 @@ import PageHero from '../components/PageHero.astro';
 import TrustBar from '../components/TrustBar.astro';
 import { SITE } from '../data/site';
 import { getBreadcrumbSchema } from '../data/schema';
+import { assetUrl, pageUrl, routeUrl } from '../utils/paths';
 
 const title = `About Us | ${SITE.name}`;
 const description =
 	'Learn about Fakhar Auto Workshop in Islamabad. Experienced team, quality parts, and commitment to customer satisfaction.';
 const breadcrumbSchema = getBreadcrumbSchema([
-	{ name: 'Home', url: SITE.url + '/' },
-	{ name: 'About', url: SITE.url + '/about/' },
+	{ name: 'Home', url: pageUrl() },
+	{ name: 'About', url: pageUrl('about/') },
 ]);
 ---
 
 <Layout
 	title={title}
 	description={description}
-	canonical={`${SITE.url}/about/`}
-	image="/images/facebook/fb-02.jpg"
+	canonical={pageUrl('about/')}
+	image={assetUrl('/images/facebook/fb-02.jpg')}
 	imageAlt={`Team at ${SITE.name}`}
 	schema={breadcrumbSchema}
 	pageLayout="page"
@@ -29,12 +30,12 @@ const breadcrumbSchema = getBreadcrumbSchema([
 			lead="Exceptional auto repair with honest communication, quality parts, and a team that treats every vehicle with care."
 			eyebrow="Trusted in Islamabad"
 			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
-			image="/images/facebook/fb-02.jpg"
+			image={assetUrl('/images/facebook/fb-02.jpg')}
 			imageAlt={`Team at ${SITE.name}`}
 		>
 			<Fragment slot="actions">
 				<a href={`tel:${SITE.phone}`} class="btn btn--primary">Call {SITE.phoneDisplay}</a>
-				<a href="/contact/" class="btn btn--secondary">Contact Us</a>
+				<a href={routeUrl('/contact/')} class="btn btn--secondary">Contact Us</a>
 			</Fragment>
 		</PageHero>
 

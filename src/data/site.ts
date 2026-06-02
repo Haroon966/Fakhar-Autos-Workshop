@@ -1,10 +1,11 @@
 import googleReviews from './google-reviews.json';
+import { assetUrl, pageUrl, routeUrl } from '../utils/paths';
 
 export const SITE = {
 	name: 'Fakhar Auto Workshop',
 	shortName: 'Fakhar Auto Workshop',
 	description: 'Professional auto repair services in Islamabad. Electrical, mechanical, denting, painting, AC repair. Quality service, fast turnaround.',
-	url: 'https://fakharautoworkshop.com',
+	url: pageUrl(),
 	phone: '03351908270',
 	phoneDisplay: '0335 1908270',
 	whatsappUrl: 'https://wa.me/923351908270',
@@ -26,8 +27,8 @@ export const SITE = {
 	areaServed: 'Islamabad',
 	repairsCount: '1,000+',
 	locale: 'en_PK',
-	icon: '/logo-icon.jpg',
-	ogImage: '/og-image.jpg',
+	icon: assetUrl('/logo-icon.jpg'),
+	ogImage: assetUrl('/og-image.jpg'),
 	ogImageAlt: 'Fakhar Auto Workshop – professional auto repair in Islamabad',
 	ogImageWidth: 1200,
 	ogImageHeight: 630,
@@ -35,50 +36,50 @@ export const SITE = {
 
 /** High-resolution photos from the Fakhar Auto Works Facebook page */
 export const FACEBOOK_IMAGES = [
-	{ src: '/images/facebook/fb-01.jpg', alt: 'Fakhar Auto Works workshop service in Islamabad' },
-	{ src: '/images/facebook/fb-02.jpg', alt: 'Vehicle repair and maintenance at Fakhar Auto Works' },
-	{ src: '/images/facebook/fb-03.jpg', alt: 'Auto workshop facility and service bay' },
-	{ src: '/images/facebook/fb-05.jpg', alt: 'Automotive service at Fakhar Auto Works' },
-	{ src: '/images/facebook/fb-06.jpg', alt: 'Professional car repair work' },
-	{ src: '/images/facebook/fb-09.jpg', alt: 'Fakhar Auto Works team and workshop' },
-	{ src: '/images/facebook/fb-10.jpg', alt: 'Car repair and maintenance work' },
-	{ src: '/images/facebook/fb-11.jpg', alt: 'Workshop service bay in Islamabad' },
-	{ src: '/images/facebook/fb-12.jpg', alt: 'Vehicle diagnostics at Fakhar Auto Works' },
-	{ src: '/images/facebook/fb-13.jpg', alt: 'Auto repair facility and equipment' },
-	{ src: '/images/facebook/fb-14.jpg', alt: 'Mechanical repair service' },
-	{ src: '/images/facebook/fb-16.jpg', alt: 'Fakhar Auto Works repair work' },
-	{ src: '/images/facebook/fb-17.jpg', alt: 'Workshop team servicing a vehicle' },
-	{ src: '/images/facebook/fb-18.jpg', alt: 'Quality auto care at Fakhar Auto Workshop' },
+	{ src: assetUrl('/images/facebook/fb-01.jpg'), alt: 'Fakhar Auto Works workshop service in Islamabad' },
+	{ src: assetUrl('/images/facebook/fb-02.jpg'), alt: 'Vehicle repair and maintenance at Fakhar Auto Works' },
+	{ src: assetUrl('/images/facebook/fb-03.jpg'), alt: 'Auto workshop facility and service bay' },
+	{ src: assetUrl('/images/facebook/fb-05.jpg'), alt: 'Automotive service at Fakhar Auto Works' },
+	{ src: assetUrl('/images/facebook/fb-06.jpg'), alt: 'Professional car repair work' },
+	{ src: assetUrl('/images/facebook/fb-09.jpg'), alt: 'Fakhar Auto Works team and workshop' },
+	{ src: assetUrl('/images/facebook/fb-10.jpg'), alt: 'Car repair and maintenance work' },
+	{ src: assetUrl('/images/facebook/fb-11.jpg'), alt: 'Workshop service bay in Islamabad' },
+	{ src: assetUrl('/images/facebook/fb-12.jpg'), alt: 'Vehicle diagnostics at Fakhar Auto Works' },
+	{ src: assetUrl('/images/facebook/fb-13.jpg'), alt: 'Auto repair facility and equipment' },
+	{ src: assetUrl('/images/facebook/fb-14.jpg'), alt: 'Mechanical repair service' },
+	{ src: assetUrl('/images/facebook/fb-16.jpg'), alt: 'Fakhar Auto Works repair work' },
+	{ src: assetUrl('/images/facebook/fb-17.jpg'), alt: 'Workshop team servicing a vehicle' },
+	{ src: assetUrl('/images/facebook/fb-18.jpg'), alt: 'Quality auto care at Fakhar Auto Workshop' },
 ] as const;
 
 /** Additional photos from the Google Maps listing */
 export const MAPS_IMAGES = [
-	{ src: '/images/workshop/workshop-07.jpg', alt: 'Fakhar Auto Workshop exterior and service bay' },
-	{ src: '/images/workshop/workshop-03.jpg', alt: 'Vehicle repair work at Fakhar Auto Workshop' },
-	{ src: '/images/workshop/workshop-05.jpg', alt: 'Auto workshop facility in Islamabad' },
+	{ src: assetUrl('/images/workshop/workshop-07.jpg'), alt: 'Fakhar Auto Workshop exterior and service bay' },
+	{ src: assetUrl('/images/workshop/workshop-03.jpg'), alt: 'Vehicle repair work at Fakhar Auto Workshop' },
+	{ src: assetUrl('/images/workshop/workshop-05.jpg'), alt: 'Auto workshop facility in Islamabad' },
 ] as const;
 
 export const WORKSHOP_IMAGES = [...FACEBOOK_IMAGES, ...MAPS_IMAGES] as const;
 
 /** Shared slideshow images for hero and quote CTA */
 export const QUOTE_CTA_IMAGES = [
-	{ src: '/images/getquaoteimages/contactusbgimages1.jpeg', alt: 'Vehicle repair at Fakhar Auto Workshop' },
-	{ src: '/images/getquaoteimages/contactusbgimages2.jpeg', alt: 'Auto service bay at Fakhar Auto Workshop' },
-	{ src: '/images/getquaoteimages/contactusbgimages3.jpeg', alt: 'Mechanical repair work in Islamabad' },
-	{ src: '/images/getquaoteimages/contactusbgimages4.jpeg', alt: 'Professional car maintenance and repair' },
-	{ src: '/images/getquaoteimages/contactusbgimages5.jpeg', alt: 'Workshop diagnostics and vehicle care' },
-	{ src: '/images/getquaoteimages/contactusbgimages6.jpeg', alt: 'Fakhar Auto Workshop repair service' },
+	{ src: assetUrl('/images/getquaoteimages/contactusbgimages1.jpeg'), alt: 'Vehicle repair at Fakhar Auto Workshop' },
+	{ src: assetUrl('/images/getquaoteimages/contactusbgimages2.jpeg'), alt: 'Auto service bay at Fakhar Auto Workshop' },
+	{ src: assetUrl('/images/getquaoteimages/contactusbgimages3.jpeg'), alt: 'Mechanical repair work in Islamabad' },
+	{ src: assetUrl('/images/getquaoteimages/contactusbgimages4.jpeg'), alt: 'Professional car maintenance and repair' },
+	{ src: assetUrl('/images/getquaoteimages/contactusbgimages5.jpeg'), alt: 'Workshop diagnostics and vehicle care' },
+	{ src: assetUrl('/images/getquaoteimages/contactusbgimages6.jpeg'), alt: 'Fakhar Auto Workshop repair service' },
 ] as const;
 
 export const HERO_SLIDES = QUOTE_CTA_IMAGES;
 
 export const SERVICES = [
-	{ slug: 'electrical-repairs', name: 'Electrical Repairs', shortDesc: 'Complete electrical diagnostics and repairs for all vehicle systems', image: '/images/facebook/fb-06.jpg' },
-	{ slug: 'mechanical-services', name: 'Mechanical Services', shortDesc: 'Expert engine repairs, transmission work, and general maintenance', image: '/images/facebook/fb-02.jpg' },
-	{ slug: 'denting', name: 'Denting', shortDesc: 'Professional dent removal and body work restoration', image: '/images/facebook/fb-05.jpg' },
-	{ slug: 'painting', name: 'Painting', shortDesc: 'High-quality paint jobs with color matching and finishing', image: '/images/facebook/fb-03.jpg' },
-	{ slug: 'ac-repair', name: 'AC Repair', shortDesc: 'Air conditioning system diagnostics, repair, and recharging', image: '/images/facebook/fb-01.jpg' },
-	{ slug: 'other-services', name: 'Other Services', shortDesc: 'Oil changes, brake services, tire rotation, and more', image: '/images/facebook/fb-09.jpg' },
+	{ slug: 'electrical-repairs', name: 'Electrical Repairs', shortDesc: 'Complete electrical diagnostics and repairs for all vehicle systems', image: assetUrl('/images/facebook/fb-06.jpg') },
+	{ slug: 'mechanical-services', name: 'Mechanical Services', shortDesc: 'Expert engine repairs, transmission work, and general maintenance', image: assetUrl('/images/facebook/fb-02.jpg') },
+	{ slug: 'denting', name: 'Denting', shortDesc: 'Professional dent removal and body work restoration', image: assetUrl('/images/facebook/fb-05.jpg') },
+	{ slug: 'painting', name: 'Painting', shortDesc: 'High-quality paint jobs with color matching and finishing', image: assetUrl('/images/facebook/fb-03.jpg') },
+	{ slug: 'ac-repair', name: 'AC Repair', shortDesc: 'Air conditioning system diagnostics, repair, and recharging', image: assetUrl('/images/facebook/fb-01.jpg') },
+	{ slug: 'other-services', name: 'Other Services', shortDesc: 'Oil changes, brake services, tire rotation, and more', image: assetUrl('/images/facebook/fb-09.jpg') },
 ] as const;
 
 export const FEATURES = [
@@ -99,17 +100,17 @@ export const REPAIR_CASES = [
 		slug: 'suspension-alignment',
 		title: 'Suspension Alignment Correction Case',
 		desc: 'Precise alignment and suspension calibration.',
-		image: '/images/facebook/fb-05.jpg',
+		image: assetUrl('/images/facebook/fb-05.jpg'),
 		imageAlt: 'Suspension and wheel alignment repair at Fakhar Auto Workshop',
-		href: '/services/mechanical-services/',
+		href: routeUrl('/services/mechanical-services/'),
 	},
 	{
 		slug: 'engine-diagnostics',
 		title: 'Engine Diagnostics & Tune-Up Case',
 		desc: 'Full inspection, fault tracing, and performance restoration.',
-		image: '/images/facebook/fb-02.jpg',
+		image: assetUrl('/images/facebook/fb-02.jpg'),
 		imageAlt: 'Engine diagnostics and mechanical repair at Fakhar Auto Workshop',
-		href: '/services/mechanical-services/',
+		href: routeUrl('/services/mechanical-services/'),
 	},
 ] as const;
 

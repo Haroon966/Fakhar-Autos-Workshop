@@ -5,9 +5,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:gh-pages": "ASTRO_SITE=https://haroon966.github.io ASTRO_BASE_PATH=/Fakhar-Autos-Workshop astro build",
+    "preview:gh-pages": "npm run build:gh-pages && astro preview",
     "preview": "astro preview",
     "astro": "astro",
-    "fetch-reviews": "node scripts/fetch-google-reviews.mjs"
+    "fetch-reviews": "node scripts/fetch-google-reviews.mjs",
+    "deploy:hostinger": "node --env-file=.env scripts/deploy-hostinger.mjs",
+    "deploy:hostinger:ftp": "node --env-file=.env scripts/deploy-hostinger-ftp.mjs",
+    "package:hostinger": "npm run build && node scripts/package-hostinger.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
@@ -15,6 +20,7 @@
     "astro": "^5.17.1"
   },
   "devDependencies": {
+    "basic-ftp": "^6.0.1",
     "google-maps-review-scraper": "^2.1.1"
   }
 }

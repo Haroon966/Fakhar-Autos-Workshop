@@ -5,6 +5,7 @@ import TrustBar from './TrustBar.astro';
 import ServiceSidebar from './ServiceSidebar.astro';
 import { SITE, SERVICES } from '../data/site';
 import { getBreadcrumbSchema } from '../data/schema';
+import { pageUrl, routeUrl } from '../utils/paths';
 
 interface Props {
 	title: string;
@@ -23,9 +24,9 @@ const serviceIndex = SERVICES.findIndex((s) => s.slug === slug);
 const prevSlug = serviceIndex > 0 ? SERVICES[serviceIndex - 1].slug : null;
 const nextSlug = serviceIndex >= 0 && serviceIndex < SERVICES.length - 1 ? SERVICES[serviceIndex + 1].slug : null;
 const breadcrumbSchema = getBreadcrumbSchema([
-	{ name: 'Home', url: SITE.url + '/' },
-	{ name: 'Services', url: SITE.url + '/services/' },
-	{ name: serviceName, url: SITE.url + '/services/' + slug + '/' },
+	{ name: 'Home', url: pageUrl() },
+	{ name: 'Services', url: pageUrl('services/') },
+	{ name: serviceName, url: pageUrl(`services/${slug}/`) },
 ]);
 const schemas = [breadcrumbSchema, ...(serviceSchema ? [serviceSchema] : [])];
 ---
@@ -33,7 +34,7 @@ const schemas = [breadcrumbSchema, ...(serviceSchema ? [serviceSchema] : [])];
 <Layout
 	title={title}
 	description={description}
-	canonical={`${SITE.url}/services/${slug}/`}
+	canonical={pageUrl(`services/${slug}/`)}
 	image={service?.image}
 	imageAlt={`${serviceName} at ${SITE.name}`}
 	schema={schemas}
@@ -72,13 +73,13 @@ const schemas = [breadcrumbSchema, ...(serviceSchema ? [serviceSchema] : [])];
 		<nav class="service-pager" aria-label="Other services">
 			<div class="layout service-pager__inner">
 				{prevSlug && (
-					<a href={`/services/${prevSlug}/`} class="btn btn--secondary">
+					<a href={routeUrl(`/services/${prevSlug}/`)} class="btn btn--secondary">
 						← {SERVICES.find((s) => s.slug === prevSlug)?.name}
 					</a>
 				)}
-				<a href="/services/" class="btn btn--ghost">All Services</a>
+				<a href={routeUrl('/services/')} class="btn btn--ghost">All Services</a>
 				{nextSlug && (
-					<a href={`/services/${nextSlug}/`} class="btn btn--secondary">
+					<a href={routeUrl(`/services/${nextSlug}/`)} class="btn btn--secondary">
 						{SERVICES.find((s) => s.slug === nextSlug)?.name} →
 					</a>
 				)}

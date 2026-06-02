@@ -1,5 +1,6 @@
 ---
 import { SITE, SERVICES } from '../data/site';
+import { routeUrl } from '../utils/paths';
 import QuoteCTA from './QuoteCTA.astro';
 const year = new Date().getFullYear();
 ---
@@ -8,23 +9,23 @@ const year = new Date().getFullYear();
 	<QuoteCTA />
 	<div class="footer__main layout">
 		<div class="footer__brand">
-			<a href="/" class="footer__logo">{SITE.shortName}</a>
+			<a href={routeUrl('/')} class="footer__logo">{SITE.shortName}</a>
 			<p class="footer__copy">© {year} {SITE.name}. All rights reserved.</p>
 		</div>
 		<div class="footer__col">
 			<h3 class="footer__heading">Navigation</h3>
 			<ul class="footer__links">
-				<li><a href="/">Home</a></li>
-				<li><a href="/services/">Services</a></li>
-				<li><a href="/about/">About</a></li>
-				<li><a href="/contact/">Contact</a></li>
+				<li><a href={routeUrl('/')}>Home</a></li>
+				<li><a href={routeUrl('/services/')}>Services</a></li>
+				<li><a href={routeUrl('/about/')}>About</a></li>
+				<li><a href={routeUrl('/contact/')}>Contact</a></li>
 			</ul>
 		</div>
 		<div class="footer__col">
 			<h3 class="footer__heading">Services</h3>
 			<ul class="footer__links">
 				{SERVICES.slice(0, 4).map((s) => (
-					<li><a href={`/services/${s.slug}/`}>{s.name}</a></li>
+					<li><a href={routeUrl(`/services/${s.slug}/`)}>{s.name}</a></li>
 				))}
 			</ul>
 		</div>

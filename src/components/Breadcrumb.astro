@@ -1,4 +1,6 @@
 ---
+import { routeUrl } from '../utils/paths';
+
 interface Crumb {
 	label: string;
 	href?: string;
@@ -16,7 +18,7 @@ const { items } = Astro.props;
 		{items.map((item, i) => (
 			<li>
 				{item.href ? (
-					<a href={item.href}>{item.label}</a>
+					<a href={routeUrl(item.href)}>{item.label}</a>
 				) : (
 					<span aria-current="page">{item.label}</span>
 				)}

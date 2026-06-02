@@ -1,19 +1,20 @@
 ---
 import { SITE } from '../data/site';
+import { routeUrl, stripBasePath } from '../utils/paths';
 
 interface Props {
 	transparent?: boolean;
 }
 
 const { transparent = false } = Astro.props;
-const currentPath = Astro.url.pathname;
+const currentPath = stripBasePath(Astro.url.pathname);
 const isActive = (path: string) =>
 	currentPath === path || (path !== '/' && currentPath.startsWith(path));
 ---
 
 <header class:list={['header', { 'header--transparent': transparent }]}>
 	<div class="header__bar layout">
-		<a href="/" class="header__logo" aria-label={`${SITE.name} Home`}>
+		<a href={routeUrl('/')} class="header__logo" aria-label={`${SITE.name} Home`}>
 			{SITE.shortName}
 		</a>
 		<button
@@ -28,9 +29,9 @@ const isActive = (path: string) =>
 		</button>
 		<nav class="header__nav" id="nav-menu" aria-label="Main">
 			<ul class="header__nav-list">
-				<li><a href="/services/" class:list={['header__link', { active: isActive('/services/') }]}>Services</a></li>
-				<li><a href="/about/" class:list={['header__link', { active: isActive('/about/') }]}>About</a></li>
-				<li><a href="/contact/" class:list={['header__link', { active: isActive('/contact/') }]}>Contact</a></li>
+				<li><a href={routeUrl('/services/')} class:list={['header__link', { active: isActive('/services/') }]}>Services</a></li>
+				<li><a href={routeUrl('/about/')} class:list={['header__link', { active: isActive('/about/') }]}>About</a></li>
+				<li><a href={routeUrl('/contact/')} class:list={['header__link', { active: isActive('/contact/') }]}>Contact</a></li>
 			</ul>
 			<div class="header__actions">
 				<a

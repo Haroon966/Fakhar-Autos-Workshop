@@ -1,5 +1,6 @@
 ---
 import { SITE, SERVICES } from '../data/site';
+import { routeUrl } from '../utils/paths';
 
 interface Props {
 	currentSlug: string;
@@ -32,7 +33,7 @@ const { currentSlug } = Astro.props;
 			{SERVICES.map((s) => (
 				<li>
 					<a
-						href={`/services/${s.slug}/`}
+						href={routeUrl(`/services/${s.slug}/`)}
 						aria-current={s.slug === currentSlug ? 'page' : undefined}
 					>
 						{s.name}

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { SITE } from '../data/site';
+import { routeUrl } from '../utils/paths';
 
 const title = `Page Not Found | ${SITE.name}`;
 const description = 'The page you requested could not be found. Return to Fakhar Auto Workshop for auto repair services in Islamabad.';
@@ -13,9 +14,9 @@ const description = 'The page you requested could not be found. Return to Fakhar
 			<h1 class="not-found__title">Page not found</h1>
 			<p class="not-found__lead">The link may be broken or the page may have been moved.</p>
 			<div class="not-found__actions">
-				<a href="/" class="btn btn--primary">Back to home</a>
-				<a href="/services/" class="btn btn--secondary">View services</a>
-				<a href="/contact/" class="btn btn--secondary">Contact us</a>
+				<a href={routeUrl('/')} class="btn btn--primary">Back to home</a>
+				<a href={routeUrl('/services/')} class="btn btn--secondary">View services</a>
+				<a href={routeUrl('/contact/')} class="btn btn--secondary">Contact us</a>
 			</div>
 		</div>
 	</article>

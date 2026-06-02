@@ -5,24 +5,25 @@ import TrustBar from '../../components/TrustBar.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import { SITE, SERVICES } from '../../data/site';
 import { getBreadcrumbSchema } from '../../data/schema';
+import { assetUrl, pageUrl } from '../../utils/paths';
 
 const title = `Our Services | ${SITE.name}`;
 const description =
 	'Comprehensive auto repair services in Islamabad: electrical repairs, mechanical services, denting, painting, AC repair, oil change, brakes, and more.';
 const breadcrumbSchema = getBreadcrumbSchema([
-	{ name: 'Home', url: SITE.url + '/' },
-	{ name: 'Services', url: SITE.url + '/services/' },
+	{ name: 'Home', url: pageUrl() },
+	{ name: 'Services', url: pageUrl('services/') },
 ]);
 ---
 
-<Layout title={title} description={description} canonical={`${SITE.url}/services/`} schema={breadcrumbSchema} pageLayout="page">
+<Layout title={title} description={description} canonical={pageUrl('services/')} schema={breadcrumbSchema} pageLayout="page">
 	<article class="page">
 		<PageHero
 			title="Premium Maintenance for Every Vehicle"
 			lead="Expert care for performance, safety, and long-term reliability — from diagnostics to denting, painting, and AC repair."
 			eyebrow="Our services"
 			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
-			image="/images/facebook/fb-01.jpg"
+			image={assetUrl('/images/facebook/fb-01.jpg')}
 			imageAlt="Auto repair services at Fakhar Auto Workshop"
 		>
 			<Fragment slot="actions">

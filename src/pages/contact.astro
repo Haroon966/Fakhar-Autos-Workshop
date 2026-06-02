@@ -4,17 +4,18 @@ import PageHero from '../components/PageHero.astro';
 import MapEmbed from '../components/MapEmbed.astro';
 import { SITE } from '../data/site';
 import { getAutoRepairSchema, getBreadcrumbSchema } from '../data/schema';
+import { pageUrl } from '../utils/paths';
 
 const title = `Contact | ${SITE.name}`;
 const description =
 	'Contact Fakhar Auto Workshop in Islamabad by phone or WhatsApp. Visit us for quotes, booking, and workshop hours.';
 const breadcrumbSchema = getBreadcrumbSchema([
-	{ name: 'Home', url: SITE.url + '/' },
-	{ name: 'Contact', url: SITE.url + '/contact/' },
+	{ name: 'Home', url: pageUrl() },
+	{ name: 'Contact', url: pageUrl('contact/') },
 ]);
 ---
 
-<Layout title={title} description={description} canonical={`${SITE.url}/contact/`} schema={[getAutoRepairSchema(), breadcrumbSchema]} pageLayout="page">
+<Layout title={title} description={description} canonical={pageUrl('contact/')} schema={[getAutoRepairSchema(), breadcrumbSchema]} pageLayout="page">
 	<article class="page">
 		<PageHero
 			title="Get In Touch"

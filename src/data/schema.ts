@@ -1,3 +1,4 @@
+import { pageUrl } from '../utils/paths';
 import { SITE, FAQ_ITEMS, GOOGLE_REVIEWS_SUMMARY, TESTIMONIALS } from './site';
 
 export function getAutoRepairSchema() {
@@ -61,7 +62,7 @@ export function getServiceSchema(serviceName: string, serviceDescription: string
 			'@type': 'City',
 			name: SITE.areaServed,
 		},
-		url: `${SITE.url}/services/${slug}/`,
+		url: pageUrl(`services/${slug}/`),
 	};
 }
 
