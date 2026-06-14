@@ -1,27 +1,34 @@
 ---
 import { HERO_SLIDES } from '../data/site';
+import { responsiveWebpSrcset, responsiveFallbackSrcset } from '../utils/images';
 ---
 
 <div class="hero-slideshow" data-hero-slideshow>
-	<div class="hero-slideshow__track" aria-hidden="true">
+	<div class="hero-slideshow__track">
 		{HERO_SLIDES.map((slide, i) => (
 			<div
 				class:list={['hero-slideshow__slide', { 'hero-slideshow__slide--active': i === 0 }]}
 				data-slide={i}
+				aria-hidden={i === 0 ? undefined : 'true'}
 			>
-				<img
-					src={slide.src}
-					alt={slide.alt}
-					width="1920"
-					height="1080"
-					loading={i === 0 ? 'eager' : 'lazy'}
-					fetchpriority={i === 0 ? 'high' : 'auto'}
-					decoding="async"
-				/>
+				<picture>
+					<source type="image/webp" srcset={responsiveWebpSrcset(slide.src)} sizes="100vw" />
+					<img
+						src={slide.src}
+						srcset={responsiveFallbackSrcset(slide.src)}
+						sizes="100vw"
+						alt={i === 0 ? slide.alt : ''}
+						width="1920"
+						height="1080"
+						loading={i === 0 ? 'eager' : 'lazy'}
+						fetchpriority={i === 0 ? 'high' : 'auto'}
+						decoding="async"
+					/>
+				</picture>
 			</div>
 		))}
 	</div>
-	<div class="hero-slideshow__overlay"></div>
+	<div class="hero-slideshow__overlay" aria-hidden="true"></div>
 	<div class="hero-slideshow__controls">
 		<button type="button" class="hero-slideshow__nav" data-prev aria-label="Previous slide">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -69,12 +76,21 @@ import { HERO_SLIDES } from '../data/site';
 		const setSlide = (index: number) => {
 			current = (index + total) % total;
 			slides.forEach((slide, i) => {
-				slide.classList.toggle('hero-slideshow__slide--active', i === current);
+				const active = i === current;
+				slide.classList.toggle('hero-slideshow__slide--active', active);
+				slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+				const img = slide.querySelector('img');
+				if (img) img.alt = active ? img.dataset.alt ?? img.alt : '';
 			});
 			dots.forEach((dot, i) => {
 				dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
 			});
 		};
+
+		slides.forEach((slide) => {
+			const img = slide.querySelector('img');
+			if (img?.alt) img.dataset.alt = img.alt;
+		});
 
 		const next = () => setSlide(current + 1);
 		const prev = () => setSlide(current - 1);
@@ -166,11 +182,15 @@ import { HERO_SLIDES } from '../data/site';
 		opacity: 1;
 		z-index: 1;
 	}
+	.hero-slideshow__slide picture,
 	.hero-slideshow__slide img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
+		display: block;
+	}
+	.hero-slideshow__slide img {
 		transform: scaleX(-1);
 	}
 	.hero-slideshow__overlay {
@@ -233,19 +253,28 @@ import { HERO_SLIDES } from '../data/site';
 		outline-offset: 2px;
 	}
 	.hero-slideshow__dot {
-		width: 10px;
-		height: 10px;
+		width: 24px;
+		height: 24px;
 		padding: 0;
 		border: none;
 		border-radius: 50%;
-		background: var(--color-border-strong);
+		background: transparent;
 		cursor: pointer;
+		position: relative;
+		flex-shrink: 0;
+	}
+	.hero-slideshow__dot::after {
+		content: '';
+		position: absolute;
+		inset: 7px;
+		border-radius: 50%;
+		background: var(--color-border-strong);
 		transition: background 0.2s ease;
 	}
-	.hero-slideshow__dot:hover {
+	.hero-slideshow__dot:hover::after {
 		background: var(--color-text-muted);
 	}
-	.hero-slideshow__dot[aria-selected='true'] {
+	.hero-slideshow__dot[aria-selected='true']::after {
 		background: var(--color-cta);
 	}
 	.hero-slideshow__dot:focus-visible {

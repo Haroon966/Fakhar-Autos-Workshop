@@ -1,5 +1,6 @@
 ---
-import { SITE, QUOTE_CTA_IMAGES } from '../data/site';
+import { SITE } from '../data/site';
+import { assetUrl } from '../utils/paths';
 
 interface Props {
 	title?: string;
@@ -14,28 +15,14 @@ const {
 	buttonLabel = 'Ask on WhatsApp',
 	buttonHref = SITE.whatsappUrl,
 } = Astro.props;
+
+const bgImage = assetUrl('/images/getquaoteimages/contactusbgimages1.jpeg');
 ---
 
 <section class="quote-cta" aria-label="Get a repair quote">
 	<div class="layout quote-cta__wrap">
 		<div class="quote-cta__card">
-			<div class="quote-cta__slideshow" data-quote-slideshow aria-hidden="true">
-				{QUOTE_CTA_IMAGES.map((slide, i) => (
-					<div
-						class:list={['quote-cta__slide', { 'quote-cta__slide--active': i === 0 }]}
-						data-slide={i}
-					>
-						<img
-							src={slide.src}
-							alt=""
-							width="1400"
-							height="700"
-							loading={i === 0 ? 'eager' : 'lazy'}
-							decoding="async"
-						/>
-					</div>
-				))}
-			</div>
+			<div class="quote-cta__bg" aria-hidden="true" style={`background-image: url('${bgImage}')`}></div>
 			<div class="quote-cta__overlay" aria-hidden="true"></div>
 			<div class="quote-cta__content">
 				<h2 class="quote-cta__title">{title}</h2>
@@ -68,31 +55,12 @@ const {
 		overflow: hidden;
 		background: #0a0a0a;
 	}
-	.quote-cta__slideshow {
+	.quote-cta__bg {
 		position: absolute;
 		inset: 0;
 		z-index: 0;
-	}
-	.quote-cta__slide {
-		position: absolute;
-		inset: 0;
-		opacity: 0;
-		transition: opacity 1.2s ease;
-	}
-	.quote-cta__slide--active {
-		opacity: 1;
-		z-index: 1;
-	}
-	.quote-cta__slide img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center 45%;
-		transform: scale(1);
-		transition: transform 7s ease;
-	}
-	.quote-cta__slide--active img {
-		transform: scale(1.08);
+		background-size: cover;
+		background-position: center 45%;
 	}
 	.quote-cta__overlay {
 		position: absolute;
@@ -115,7 +83,6 @@ const {
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-end;
-		gap: 0;
 		padding: clamp(1.5rem, 4vw, 2.75rem);
 		max-width: 36rem;
 	}
@@ -143,63 +110,4 @@ const {
 			min-height: 380px;
 		}
 	}
-	@media (prefers-reduced-motion: reduce) {
-		.quote-cta__slide {
-			transition: none;
-		}
-		.quote-cta__slide img {
-			transition: none;
-			transform: scale(1) !important;
-		}
-	}
 </style>
-
-<script>
-	function initQuoteSlideshow(root: HTMLElement) {
-		const slides = root.querySelectorAll<HTMLElement>('[data-slide]');
-		const total = slides.length;
-		if (total < 2) return;
-
-		let current = 0;
-		let timer: ReturnType<typeof setInterval> | null = null;
-		const intervalMs = 5000;
-		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-		const setSlide = (index: number) => {
-			current = (index + total) % total;
-			slides.forEach((slide, i) => {
-				slide.classList.toggle('quote-cta__slide--active', i === current);
-			});
-		};
-
-		const next = () => setSlide(current + 1);
-
-		const start = () => {
-			if (reducedMotion) return;
-			stop();
-			timer = setInterval(next, intervalMs);
-		};
-
-		const stop = () => {
-			if (timer) {
-				clearInterval(timer);
-				timer = null;
-			}
-		};
-
-		const card = root.closest('.quote-cta__card');
-		card?.addEventListener('mouseenter', stop);
-		card?.addEventListener('mouseleave', start);
-		card?.addEventListener('focusin', stop);
-		card?.addEventListener('focusout', start);
-
-		document.addEventListener('visibilitychange', () => {
-			if (document.hidden) stop();
-			else start();
-		});
-
-		start();
-	}
-
-	document.querySelectorAll<HTMLElement>('[data-quote-slideshow]').forEach(initQuoteSlideshow);
-</script>

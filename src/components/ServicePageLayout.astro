@@ -3,8 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import TrustBar from './TrustBar.astro';
 import ServiceSidebar from './ServiceSidebar.astro';
-import { SITE, SERVICES } from '../data/site';
-import { getBreadcrumbSchema } from '../data/schema';
+import FAQBlock from './FAQBlock.astro';
+import { SITE, SERVICES, SERVICE_FAQS } from '../data/site';
+import { getBreadcrumbSchema, getFAQSchema } from '../data/schema';
 import { pageUrl, routeUrl } from '../utils/paths';
 
 interface Props {
@@ -23,12 +24,14 @@ const service = SERVICES.find((s) => s.slug === slug);
 const serviceIndex = SERVICES.findIndex((s) => s.slug === slug);
 const prevSlug = serviceIndex > 0 ? SERVICES[serviceIndex - 1].slug : null;
 const nextSlug = serviceIndex >= 0 && serviceIndex < SERVICES.length - 1 ? SERVICES[serviceIndex + 1].slug : null;
+const serviceFaqs = SERVICE_FAQS[slug] ?? [];
 const breadcrumbSchema = getBreadcrumbSchema([
 	{ name: 'Home', url: pageUrl() },
 	{ name: 'Services', url: pageUrl('services/') },
 	{ name: serviceName, url: pageUrl(`services/${slug}/`) },
 ]);
-const schemas = [breadcrumbSchema, ...(serviceSchema ? [serviceSchema] : [])];
+const faqSchema = serviceFaqs.length > 0 ? getFAQSchema(serviceFaqs) : null;
+const schemas = [breadcrumbSchema, ...(serviceSchema ? [serviceSchema] : []), ...(faqSchema ? [faqSchema] : [])];
 ---
 
 <Layout
@@ -63,6 +66,9 @@ const schemas = [breadcrumbSchema, ...(serviceSchema ? [serviceSchema] : [])];
 			<div class="page__grid">
 				<div class="page__main prose">
 					<slot />
+					{serviceFaqs.length > 0 && (
+						<FAQBlock items={serviceFaqs} heading={`${serviceName} — FAQ`} accordion={false} />
+					)}
 				</div>
 				<ServiceSidebar currentSlug={slug} />
 			</div>

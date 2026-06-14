@@ -1,0 +1,111 @@
+---
+interface Props {
+	items: readonly { q: string; a: string }[];
+	heading?: string;
+	accordion?: boolean;
+}
+
+const { items, heading = 'Frequently Asked Questions', accordion = false } = Astro.props;
+---
+
+<section class="faq-block" aria-labelledby={heading ? 'faq-block-heading' : undefined}>
+	{heading && <h2 id="faq-block-heading" class="faq-block__heading">{heading}</h2>}
+	<div class="faq-grid">
+		{items.map((item) =>
+			accordion ? (
+				<details class="faq-item" name="faq">
+					<summary class="faq-item__q">
+						<h3 class="faq-item__label">{item.q}</h3>
+						<span class="faq-item__toggle" aria-hidden="true" />
+					</summary>
+					<p class="faq-item__a">{item.a}</p>
+				</details>
+			) : (
+				<article class="faq-item faq-item--static">
+					<h3 class="faq-item__label">{item.q}</h3>
+					<p class="faq-item__a">{item.a}</p>
+				</article>
+			),
+		)}
+	</div>
+</section>
+
+<style>
+	.faq-block__heading {
+		font-size: clamp(1.5rem, 3vw, 2rem);
+		font-weight: 700;
+		margin: 0 0 1.5rem;
+	}
+	.faq-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+	@media (min-width: 768px) {
+		.faq-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 12px 16px;
+		}
+	}
+	.faq-item {
+		background: #ffffff;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		overflow: hidden;
+	}
+	.faq-item--static {
+		padding: 16px 18px;
+	}
+	.faq-item__q {
+		padding: 16px 18px;
+		cursor: pointer;
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+	}
+	.faq-item__q::-webkit-details-marker {
+		display: none;
+	}
+	.faq-item__label {
+		flex: 1;
+		min-width: 0;
+		margin: 0;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		color: var(--color-text);
+		text-align: left;
+	}
+	.faq-item--static .faq-item__label {
+		margin-bottom: 8px;
+	}
+	.faq-item__toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 32px;
+		height: 32px;
+		font-size: 1.125rem;
+		color: var(--color-text-muted);
+		background: var(--color-bg-elevated);
+		border-radius: 8px;
+	}
+	.faq-item__toggle::before {
+		content: '+';
+	}
+	.faq-item[open] .faq-item__toggle::before {
+		content: '−';
+	}
+	.faq-item__a {
+		margin: 0;
+		padding: 0 18px 16px;
+		font-size: 0.9375rem;
+		color: var(--color-text-muted);
+		line-height: 1.65;
+	}
+	.faq-item--static .faq-item__a {
+		padding: 0;
+	}
+</style>

@@ -4,23 +4,28 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "prebuild": "node scripts/optimize-images.mjs",
     "build": "astro build",
     "build:gh-pages": "ASTRO_SITE=https://haroon966.github.io ASTRO_BASE_PATH=/Fakhar-Autos-Workshop astro build",
     "preview:gh-pages": "npm run build:gh-pages && astro preview",
     "preview": "astro preview",
     "astro": "astro",
     "fetch-reviews": "node scripts/fetch-google-reviews.mjs",
+    "lighthouse": "npm run build && npx lighthouse http://127.0.0.1:4321/ --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --chrome-flags='--headless'",
     "deploy:hostinger": "node --env-file=.env scripts/deploy-hostinger.mjs",
     "deploy:hostinger:ftp": "node --env-file=.env scripts/deploy-hostinger-ftp.mjs",
     "package:hostinger": "npm run build && node scripts/package-hostinger.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
+    "@fontsource/dm-sans": "^5.2.5",
     "@lucide/astro": "^0.574.0",
     "astro": "^5.17.1"
   },
   "devDependencies": {
     "basic-ftp": "^6.0.1",
-    "google-maps-review-scraper": "^2.1.1"
+    "google-maps-review-scraper": "^2.1.1",
+    "sharp": "^0.34.1"
   }
 }

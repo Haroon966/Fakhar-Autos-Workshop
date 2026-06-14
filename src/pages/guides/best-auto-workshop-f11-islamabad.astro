@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { SITE, GOOGLE_REVIEWS_SUMMARY, SERVICE_AREAS } from '../../data/site';
+import { getArticleSchema, getAutoRepairSchema, getBreadcrumbSchema } from '../../data/schema';
+import { pageUrl, routeUrl } from '../../utils/paths';
+
+const title = 'Best Auto Workshop in F-11 Islamabad | Fakhar Auto Workshop';
+const description =
+	'Looking for a trusted auto workshop in F-11 Islamabad? Fakhar Auto Workshop offers electrical, mechanical, denting, painting, and AC repair with honest pricing and a 4.9 Google rating.';
+const url = pageUrl('guides/best-auto-workshop-f11-islamabad/');
+const breadcrumbSchema = getBreadcrumbSchema([
+	{ name: 'Home', url: pageUrl() },
+	{ name: 'Guides', url: pageUrl('guides/best-auto-workshop-f11-islamabad/') },
+	{ name: 'Best Auto Workshop F-11', url },
+]);
+---
+
+<Layout
+	title={title}
+	description={description}
+	canonical={url}
+	schema={[getArticleSchema(title, description, url), getAutoRepairSchema(), breadcrumbSchema]}
+	pageLayout="page"
+>
+	<article class="page">
+		<PageHero
+			title="Best Auto Workshop in F-11 Islamabad"
+			lead="Fakhar Auto Workshop on Major Rd, F-11/4 offers full-service auto repair with transparent pricing, warranty on work, and a 4.9-star Google rating."
+			eyebrow="Guide"
+			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Guides' }, { label: 'Best Workshop F-11' }]}
+		>
+			<Fragment slot="actions">
+				<a href={routeUrl('/services/')} class="btn btn--primary">Our Services</a>
+				<a href={SITE.whatsappUrl} class="btn btn--secondary" target="_blank" rel="noopener noreferrer">Ask on WhatsApp</a>
+			</Fragment>
+		</PageHero>
+
+		<div class="page__body layout prose">
+			<h2>Why choose Fakhar Auto Workshop?</h2>
+			<p>
+				We combine experienced technicians, modern diagnostic tools, and honest communication. Every repair starts with a free inspection and upfront quote.
+				Customers rate us {GOOGLE_REVIEWS_SUMMARY.rating} out of 5 on Google based on {GOOGLE_REVIEWS_SUMMARY.count} reviews.
+			</p>
+
+			<h2>Services we offer</h2>
+			<ul>
+				<li><strong>Electrical repairs</strong> — diagnostics, wiring, alternator, starter, lighting</li>
+				<li><strong>Mechanical services</strong> — engine, transmission, suspension, alignment</li>
+				<li><strong>Denting &amp; painting</strong> — dent removal, color matching, resprays</li>
+				<li><strong>AC repair</strong> — diagnostics, recharge, compressor and leak repair</li>
+				<li><strong>Maintenance</strong> — oil changes, brakes, tires, general service</li>
+			</ul>
+
+			<h2>Where are you located?</h2>
+			<p>
+				We are at {SITE.addressSingleLine}, open {SITE.hours.toLowerCase()}. We serve customers from {SERVICE_AREAS.slice(0, 3).join(', ')}, and all Islamabad.
+			</p>
+
+			<h2>How do I book?</h2>
+			<p>
+				Call <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a>, message on <a href={SITE.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>,
+				or visit our <a href={routeUrl('/contact/')}>contact page</a>.
+			</p>
+		</div>
+	</article>
+</Layout>

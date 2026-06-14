@@ -1,5 +1,4 @@
 /* Fakhar Auto Workshop — light theme (ui-ux-pro-max: Trust & Authority) */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap');
 
 :root {
 	--color-bg: #f8fafc;
@@ -9,7 +8,7 @@
 	--color-border: #e2e8f0;
 	--color-border-strong: #cbd5e1;
 	--color-text: #0f172a;
-	--color-text-muted: #475569;
+	--color-text-muted: #334155;
 	--color-primary: #1e293b;
 	--color-accent: #1e293b;
 	--color-accent-muted: #334155;

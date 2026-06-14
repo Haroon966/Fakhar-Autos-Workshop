@@ -1,5 +1,7 @@
 ---
 import { SITE, WORKSHOP_IMAGES } from '../data/site';
+
+const GALLERY_IMAGES = WORKSHOP_IMAGES.slice(0, 8);
 ---
 
 <section class="section gallery-section" id="gallery" aria-labelledby="gallery-heading">
@@ -12,7 +14,7 @@ import { SITE, WORKSHOP_IMAGES } from '../data/site';
 			</p>
 		</div>
 		<ul class="gallery-grid">
-			{WORKSHOP_IMAGES.map((img) => (
+			{GALLERY_IMAGES.map((img) => (
 				<li class="gallery-grid__item">
 					<img src={img.src} alt={img.alt} loading="lazy" width="800" height="600" />
 				</li>
@@ -50,7 +52,7 @@ import { SITE, WORKSHOP_IMAGES } from '../data/site';
 		display: block;
 	}
 	.section__intro a {
-		color: var(--color-cta);
+		color: #b91c1c;
 		font-weight: 600;
 	}
 	.section__intro a:hover {

@@ -30,6 +30,7 @@ const isActive = (path: string) =>
 		<nav class="header__nav" id="nav-menu" aria-label="Main">
 			<ul class="header__nav-list">
 				<li><a href={routeUrl('/services/')} class:list={['header__link', { active: isActive('/services/') }]}>Services</a></li>
+				<li><a href={routeUrl('/faq/')} class:list={['header__link', { active: isActive('/faq/') }]}>FAQ</a></li>
 				<li><a href={routeUrl('/about/')} class:list={['header__link', { active: isActive('/about/') }]}>About</a></li>
 				<li><a href={routeUrl('/contact/')} class:list={['header__link', { active: isActive('/contact/') }]}>Contact</a></li>
 			</ul>

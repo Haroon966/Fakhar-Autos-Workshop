@@ -1,6 +1,11 @@
 ---
 import '../styles/global.css';
 import '../styles/pages.css';
+import '@fontsource/dm-sans/400.css';
+import '@fontsource/dm-sans/500.css';
+import '@fontsource/dm-sans/600.css';
+import '@fontsource/dm-sans/700.css';
+import '@fontsource/dm-sans/800.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../data/site';
@@ -15,6 +20,7 @@ interface Props {
 	noindex?: boolean;
 	schema?: string | object | (string | object)[];
 	pageLayout?: 'home' | 'page';
+	preloadImage?: string;
 }
 
 const {
@@ -26,6 +32,7 @@ const {
 	noindex = false,
 	schema,
 	pageLayout = 'page',
+	preloadImage,
 } = Astro.props;
 const canonicalUrl =
 	canonical ?? new URL(Astro.url.pathname, Astro.site).href;
@@ -34,6 +41,12 @@ const ogImageUrl = image.startsWith('http')
 	: new URL(image, Astro.site).href;
 const schemas = schema == null ? [] : Array.isArray(schema) ? schema : [schema];
 const isHome = pageLayout === 'home';
+const isMirror = import.meta.env.BASE_URL !== '/';
+const preloadUrl = preloadImage
+	? preloadImage.startsWith('http')
+		? preloadImage
+		: new URL(preloadImage, Astro.site).href
+	: null;
 ---
 
 <!doctype html>
@@ -43,6 +56,11 @@ const isHome = pageLayout === 'home';
 		<link rel="icon" type="image/jpeg" href={SITE.icon} />
 		<link rel="apple-touch-icon" href={SITE.icon} />
 		<link rel="manifest" href={assetUrl('/site.webmanifest')} />
+		<link rel="alternate" type="text/plain" href={assetUrl('/llms.txt')} title="LLM content index" />
+		<link rel="alternate" type="text/plain" href={assetUrl('/llms-full.txt')} title="LLM full content" />
+		{preloadUrl && (
+			<link rel="preload" as="image" href={preloadUrl} fetchpriority="high" />
+		)}
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="theme-color" content="#f8fafc" />
@@ -50,6 +68,7 @@ const isHome = pageLayout === 'home';
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
 		{noindex && <meta name="robots" content="noindex, follow" />}
+		{isMirror && !noindex && <meta name="robots" content="noindex, follow" />}
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={SITE.name} />
 		<meta property="og:title" content={title} />
@@ -58,6 +77,7 @@ const isHome = pageLayout === 'home';
 		<meta property="og:locale" content={SITE.locale} />
 		<meta property="og:image" content={ogImageUrl} />
 		<meta property="og:image:alt" content={imageAlt} />
+		<meta property="og:image:type" content="image/jpeg" />
 		<meta property="og:image:width" content={String(SITE.ogImageWidth)} />
 		<meta property="og:image:height" content={String(SITE.ogImageHeight)} />
 		<meta name="twitter:card" content="summary_large_image" />
@@ -73,7 +93,7 @@ const isHome = pageLayout === 'home';
 		<a class="skip-link" href="#main-content">Skip to main content</a>
 		<Header transparent={isHome} />
 		<main class:list={['main', { 'main--home': isHome }]} id="main-content" tabindex="-1">
-			{isHome ? <slot /> : <slot />}
+			<slot />
 		</main>
 		<Footer />
 	</body>

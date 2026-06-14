@@ -8,20 +8,24 @@ import Features from '../components/Features.astro';
 import HeroSlideshow from '../components/HeroSlideshow.astro';
 import MapEmbed from '../components/MapEmbed.astro';
 import WorkshopGallery from '../components/WorkshopGallery.astro';
-import { SITE, SERVICES, PROCESS_STEPS } from '../data/site';
-import { getAutoRepairSchema, getFAQSchema, getWebSiteSchema } from '../data/schema';
-import { pageUrl, routeUrl } from '../utils/paths';
+import QuickFacts from '../components/QuickFacts.astro';
+import { SITE, SERVICES, PROCESS_STEPS, HERO_SLIDES } from '../data/site';
+import { getAutoRepairSchema, getFAQSchema, getWebSiteSchema, getHowToSchema, getSpeakableSchema } from '../data/schema';
+import { pageUrl, routeUrl, assetUrl } from '../utils/paths';
+import { responsiveBase } from '../utils/images';
 
 const title = `${SITE.name} | Premium Auto Repair in Islamabad`;
 const description =
 	'Expert auto repair in Islamabad. Electrical, mechanical, denting, painting, AC repair. Honest pricing, fast turnaround. Call ' + SITE.phoneDisplay;
+const heroPreload = assetUrl(`${responsiveBase(HERO_SLIDES[0].src)}-640w.webp`);
 ---
 
 <Layout
 	title={title}
 	description={description}
 	canonical={pageUrl()}
-	schema={[getWebSiteSchema(), getAutoRepairSchema(), getFAQSchema()]}
+	preloadImage={heroPreload}
+	schema={[getWebSiteSchema(), getAutoRepairSchema(), getFAQSchema(), getHowToSchema(), getSpeakableSchema()]}
 	pageLayout="home"
 >
 	<section class="hero" aria-label="Welcome">
@@ -32,13 +36,17 @@ const description =
 				Reliable Premium<br />
 				Car Repair in Islamabad
 			</h1>
-			<p class="hero__lead">Expert diagnostics and consistently dependable repairs for every vehicle.</p>
+			<p class="hero__lead">Expert diagnostics and consistently dependable repairs for every vehicle in F-11 and across Islamabad.</p>
 			<div class="hero__ctas">
 				<a href={routeUrl('/services/')} class="btn btn--primary">Explore Services</a>
 				<a href={`tel:${SITE.phone}`} class="btn btn--secondary">Call {SITE.phoneDisplay}</a>
 			</div>
 		</div>
 	</section>
+
+	<div class="layout home-quick-facts">
+		<QuickFacts />
+	</div>
 
 	<Features />
 
@@ -47,7 +55,7 @@ const description =
 			<div class="section__header">
 				<h2 id="services-heading" class="section__title">Premium Maintenance for Every Vehicle</h2>
 				<p class="section__intro">
-					Expert care for performance, safety, and long-term reliability across all makes and models.
+					Expert care for performance, safety, and long-term reliability across all makes and models in Islamabad.
 				</p>
 			</div>
 			<div class="services-grid">
@@ -114,6 +122,9 @@ const description =
 		align-items: flex-end;
 		padding-bottom: clamp(4rem, 12vh, 6rem);
 		padding-top: calc(100px + var(--safe-top));
+	}
+	.home-quick-facts {
+		padding-top: 2rem;
 	}
 	.hero__content {
 		position: relative;

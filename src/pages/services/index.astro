@@ -4,10 +4,10 @@ import PageHero from '../../components/PageHero.astro';
 import TrustBar from '../../components/TrustBar.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import { SITE, SERVICES } from '../../data/site';
-import { getBreadcrumbSchema } from '../../data/schema';
+import { getAutoRepairSchema, getBreadcrumbSchema, getItemListSchema } from '../../data/schema';
 import { assetUrl, pageUrl } from '../../utils/paths';
 
-const title = `Our Services | ${SITE.name}`;
+const title = `Auto Repair Services in Islamabad | ${SITE.name}`;
 const description =
 	'Comprehensive auto repair services in Islamabad: electrical repairs, mechanical services, denting, painting, AC repair, oil change, brakes, and more.';
 const breadcrumbSchema = getBreadcrumbSchema([
@@ -16,11 +16,17 @@ const breadcrumbSchema = getBreadcrumbSchema([
 ]);
 ---
 
-<Layout title={title} description={description} canonical={pageUrl('services/')} schema={breadcrumbSchema} pageLayout="page">
+<Layout
+	title={title}
+	description={description}
+	canonical={pageUrl('services/')}
+	schema={[getAutoRepairSchema(), getItemListSchema(), breadcrumbSchema]}
+	pageLayout="page"
+>
 	<article class="page">
 		<PageHero
 			title="Premium Maintenance for Every Vehicle"
-			lead="Expert care for performance, safety, and long-term reliability — from diagnostics to denting, painting, and AC repair."
+			lead="Expert care for performance, safety, and long-term reliability — from diagnostics to denting, painting, and AC repair in F-11 Islamabad."
 			eyebrow="Our services"
 			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
 			image={assetUrl('/images/facebook/fb-01.jpg')}
@@ -35,7 +41,7 @@ const breadcrumbSchema = getBreadcrumbSchema([
 		<div class="page__body layout">
 			<div class="services-intro">
 				<p class="services-intro__text">
-					Choose a service below to learn what we offer. Every job starts with a clear inspection and upfront
+					Choose a service below to learn what we offer at our F-11 Islamabad workshop. Every job starts with a clear inspection and upfront
 					pricing — no hidden fees.
 				</p>
 			</div>

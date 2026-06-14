@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../data/site';
+import { assetUrl } from '../utils/paths';
 
 interface Props {
 	title?: string;
@@ -8,21 +9,47 @@ interface Props {
 }
 
 const { title = 'Fakhar Auto Workshop location on Google Maps', height = 360, showLink = true } = Astro.props;
-const embedSrc =
-	'https://www.google.com/maps?q=33.6836888,72.9911038&hl=en&z=17&output=embed';
+const embedSrc = `https://www.google.com/maps?q=${SITE.geo.latitude},${SITE.geo.longitude}&hl=en&z=17&output=embed`;
+const staticMapSrc = assetUrl('/images/workshop/workshop-07.jpg');
 ---
 
-<div class="map-embed">
-	<iframe
-		title={title}
-		src={embedSrc}
-		width="100%"
-		height={height}
-		style="border:0;"
-		allowfullscreen=""
-		loading="lazy"
-		referrerpolicy="no-referrer-when-downgrade"
-	></iframe>
+<div class="map-embed" data-map-embed>
+	<div class="map-embed__facade" data-map-facade>
+		<a
+			href={SITE.mapsUrl}
+			class="map-embed__static"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			<img
+				src={staticMapSrc}
+				alt="Fakhar Auto Workshop at Major Rd, F-11/4, Islamabad"
+				width="800"
+				height={height}
+				loading="lazy"
+				decoding="async"
+			/>
+			<span class="map-embed__overlay">
+				<span class="map-embed__pin" aria-hidden="true">📍</span>
+				<span class="map-embed__label">Tap to open in Google Maps</span>
+			</span>
+		</a>
+		<button type="button" class="btn btn--secondary map-embed__load" data-load-map>
+			Load interactive map
+		</button>
+	</div>
+	<div class="map-embed__interactive" data-map-interactive hidden>
+		<iframe
+			title={title}
+			data-map-iframe
+			width="100%"
+			height={height}
+			style="border:0;"
+			allowfullscreen=""
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+		></iframe>
+	</div>
 	{showLink && (
 		<p class="map-embed__link">
 			<a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
@@ -32,11 +59,64 @@ const embedSrc =
 	)}
 </div>
 
+<script define:vars={{ embedSrc }}>
+	document.querySelectorAll('[data-map-embed]').forEach((root) => {
+		const facade = root.querySelector('[data-map-facade]');
+		const interactive = root.querySelector('[data-map-interactive]');
+		const iframe = root.querySelector('[data-map-iframe]');
+		const loadBtn = root.querySelector('[data-load-map]');
+		if (!facade || !interactive || !iframe || !loadBtn) return;
+
+		const loadMap = () => {
+			iframe.src = embedSrc;
+			facade.hidden = true;
+			interactive.hidden = false;
+		};
+
+		loadBtn.addEventListener('click', loadMap);
+	});
+</script>
+
 <style>
 	.map-embed {
 		width: 100%;
 	}
-	.map-embed iframe {
+	.map-embed__static {
+		position: relative;
+		display: block;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--color-shadow);
+		border: 1px solid var(--color-border);
+	}
+	.map-embed__static img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+	}
+	.map-embed__overlay {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		background: rgba(15, 23, 42, 0.35);
+		color: #fff;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+	}
+	.map-embed__pin {
+		font-size: 2rem;
+	}
+	.map-embed__load {
+		margin-top: 12px;
+		width: 100%;
+	}
+	.map-embed__interactive iframe {
 		display: block;
 		width: 100%;
 		border-radius: var(--radius-lg);

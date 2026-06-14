@@ -2,20 +2,27 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import MapEmbed from '../components/MapEmbed.astro';
+import QuickFacts from '../components/QuickFacts.astro';
 import { SITE } from '../data/site';
-import { getAutoRepairSchema, getBreadcrumbSchema } from '../data/schema';
+import { getAutoRepairSchema, getBreadcrumbSchema, getContactPageSchema, getSpeakableSchema } from '../data/schema';
 import { pageUrl } from '../utils/paths';
 
 const title = `Contact | ${SITE.name}`;
 const description =
-	'Contact Fakhar Auto Workshop in Islamabad by phone or WhatsApp. Visit us for quotes, booking, and workshop hours.';
+	'Contact Fakhar Auto Workshop in Islamabad by phone or WhatsApp. Visit us at F-11/4 for quotes, booking, and workshop hours.';
 const breadcrumbSchema = getBreadcrumbSchema([
 	{ name: 'Home', url: pageUrl() },
 	{ name: 'Contact', url: pageUrl('contact/') },
 ]);
 ---
 
-<Layout title={title} description={description} canonical={pageUrl('contact/')} schema={[getAutoRepairSchema(), breadcrumbSchema]} pageLayout="page">
+<Layout
+	title={title}
+	description={description}
+	canonical={pageUrl('contact/')}
+	schema={[getAutoRepairSchema(), getContactPageSchema(), getSpeakableSchema(), breadcrumbSchema]}
+	pageLayout="page"
+>
 	<article class="page">
 		<PageHero
 			title="Get In Touch"
@@ -30,6 +37,7 @@ const breadcrumbSchema = getBreadcrumbSchema([
 		</PageHero>
 
 		<div class="page__body layout">
+			<QuickFacts />
 			<div class="contact-cards">
 				<a href={SITE.whatsappUrl} class="contact-card" target="_blank" rel="noopener noreferrer">
 					<span class="contact-card__icon" aria-hidden="true">

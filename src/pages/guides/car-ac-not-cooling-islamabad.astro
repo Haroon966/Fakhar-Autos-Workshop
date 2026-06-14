@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import FAQBlock from '../../components/FAQBlock.astro';
+import { SITE, SERVICE_FAQS } from '../../data/site';
+import { getArticleSchema, getFAQSchema, getBreadcrumbSchema } from '../../data/schema';
+import { pageUrl, routeUrl } from '../../utils/paths';
+
+const title = 'Car AC Not Cooling in Islamabad? | Fakhar Auto Workshop';
+const description =
+	'If your car AC is blowing warm air in Islamabad, common causes include low refrigerant, leaks, or a faulty compressor. Fakhar Auto Workshop in F-11 diagnoses and fixes AC systems.';
+const url = pageUrl('guides/car-ac-not-cooling-islamabad/');
+const guideFaqs = SERVICE_FAQS['ac-repair'] ?? [];
+const breadcrumbSchema = getBreadcrumbSchema([
+	{ name: 'Home', url: pageUrl() },
+	{ name: 'Guides', url: pageUrl('guides/car-ac-not-cooling-islamabad/') },
+	{ name: 'Car AC Not Cooling', url },
+]);
+---
+
+<Layout
+	title={title}
+	description={description}
+	canonical={url}
+	schema={[getArticleSchema(title, description, url), getFAQSchema(guideFaqs), breadcrumbSchema]}
+	pageLayout="page"
+>
+	<article class="page">
+		<PageHero
+			title="Car AC Not Cooling in Islamabad?"
+			lead="Warm air from your vents usually means a refrigerant leak, worn compressor, or blocked condenser. We diagnose the root cause before recommending repairs."
+			eyebrow="Guide"
+			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Guides' }, { label: 'AC Not Cooling' }]}
+		>
+			<Fragment slot="actions">
+				<a href={routeUrl('/services/ac-repair/')} class="btn btn--primary">AC Repair Service</a>
+				<a href={`tel:${SITE.phone}`} class="btn btn--secondary">Call {SITE.phoneDisplay}</a>
+			</Fragment>
+		</PageHero>
+
+		<div class="page__body layout prose">
+			<h2>Why is my car AC blowing warm air?</h2>
+			<p>
+				In Islamabad's heat, a failing AC system is uncomfortable and often worsens quickly. The most common causes are low refrigerant from a leak,
+				a faulty compressor, a blocked condenser, or an electrical fault in the climate control system.
+			</p>
+
+			<h2>What should I do first?</h2>
+			<ol>
+				<li>Check that the AC is set to cold and recirculation is on.</li>
+				<li>Listen for the compressor clicking on — silence may indicate an electrical or refrigerant issue.</li>
+				<li>Book an inspection rather than only topping up refrigerant; leaks return without fixing the source.</li>
+			</ol>
+
+			<h2>How we fix AC problems at Fakhar Auto Workshop</h2>
+			<p>
+				We test refrigerant pressure, inspect for leaks, and check the compressor, condenser, and evaporator. After repair we recharge with the correct
+				refrigerant type and amount for your vehicle.
+			</p>
+
+			<FAQBlock items={guideFaqs} heading="AC Repair FAQ" accordion={false} />
+
+			<p>
+				Need AC repair in F-11 Islamabad? <a href={routeUrl('/contact/')}>Contact us</a> or call <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a>.
+			</p>
+		</div>
+	</article>
+</Layout>

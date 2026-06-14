@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import QuickFacts from '../components/QuickFacts.astro';
+import { SITE, FAQ_ITEMS } from '../data/site';
+import { getAutoRepairSchema, getBreadcrumbSchema, getFAQSchema } from '../data/schema';
+import { pageUrl, routeUrl } from '../utils/paths';
+
+const title = `FAQ | ${SITE.name} — Auto Repair Islamabad`;
+const description =
+	'Answers to common questions about Fakhar Auto Workshop in F-11 Islamabad — pricing, warranty, parts, hours, service areas, and booking.';
+const breadcrumbSchema = getBreadcrumbSchema([
+	{ name: 'Home', url: pageUrl() },
+	{ name: 'FAQ', url: pageUrl('faq/') },
+]);
+---
+
+<Layout
+	title={title}
+	description={description}
+	canonical={pageUrl('faq/')}
+	schema={[getAutoRepairSchema(), breadcrumbSchema, getFAQSchema()]}
+	pageLayout="page"
+>
+	<article class="page">
+		<PageHero
+			title="Frequently Asked Questions"
+			lead="Clear answers about our auto repair services, pricing, warranty, and how to book in Islamabad."
+			eyebrow="Help & answers"
+			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]}
+		>
+			<Fragment slot="actions">
+				<a href={SITE.whatsappUrl} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Ask on WhatsApp</a>
+				<a href={`tel:${SITE.phone}`} class="btn btn--secondary">Call {SITE.phoneDisplay}</a>
+			</Fragment>
+		</PageHero>
+
+		<div class="page__body layout">
+			<QuickFacts />
+			<FAQBlock items={FAQ_ITEMS} heading="All Questions" accordion={false} />
+			<p class="faq-page__cta">
+				Still have a question? <a href={routeUrl('/contact/')}>Contact us</a> or message on <a href={SITE.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>.
+			</p>
+		</div>
+	</article>
+</Layout>
+
+<style>
+	.faq-page__cta {
+		margin-top: 2.5rem;
+		font-size: 0.9375rem;
+		color: var(--color-text-muted);
+		text-align: center;
+	}
+</style>
